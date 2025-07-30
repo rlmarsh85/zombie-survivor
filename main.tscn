@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0ae168v31gld"]
+
+[ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cbxtapagjkb4n" path="res://main.gd" id="1_lquwl"]
+[ext_resource type="Script" uid="uid://dav4nn5o5cgjh" path="res://player.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dxf5hv164sji5" path="res://zombie.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="4_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_7mycd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -83, -82, 0, 0, 0, 0, -83, 694, 0, 0, 0, 0, 1214, 700, 0, 0, 0, 0, 1222, -37, 0, 0, 0, 0, -49, -46)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_lquwl")
+zombie_spawaner = ExtResource("2_7mycd")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_ig7tw")]
+position = Vector2(684, 271)
+scale = Vector2(1.0032, 0.966573)
+script = ExtResource("2_0xm2m")
+bullet_scene = ExtResource("3_h2yge")
+muzzle_scene = ExtResource("4_1bvp3")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnBoundary" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7mycd")
+
+[node name="SpawnPath" type="PathFollow2D" parent="SpawnBoundary"]
+position = Vector2(-83, -82)
+rotation = 1.5708
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

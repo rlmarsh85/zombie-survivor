@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4l8h4ddk6v2n"]
+
+[ext_resource type="Texture2D" uid="uid://b8b26wbts1ikg" path="res://assets/other/muzzle_flash_01.png" id="1_ibyan"]
+[ext_resource type="Script" uid="uid://cbogq38glrfp3" path="res://muzzle_flash.gd" id="1_k4mlb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_k4mlb"]
+blend_mode = 1
+
+[node name="MuzzleFlash" type="Node2D"]
+script = ExtResource("1_k4mlb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_k4mlb")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ibyan")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
