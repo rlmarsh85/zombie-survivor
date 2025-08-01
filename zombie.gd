@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @onready var animator = $AnimatedSprite2D
+
+const DeathEffect = preload("res://zombie_death.tscn")
+
 var base_speed = 150
 var player : Node2D
 
@@ -27,6 +30,10 @@ func move_zombie() -> void:
 	move_and_slide()		
 	
 func take_damage() -> void:
+	var death_effect = DeathEffect.instantiate()
+	get_parent().add_child(death_effect)
+	death_effect.global_position = global_position
+	death_effect.emitting = true
 	queue_free();
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

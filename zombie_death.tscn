@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd57ttp6mjd83"]
+
+[ext_resource type="Texture2D" uid="uid://fjvv1rktkdim" path="res://assets/other/white_dot.png" id="1_tg034"]
+[ext_resource type="Script" uid="uid://bnnk8gumnpsa4" path="res://zombie_death.gd" id="2_sqosm"]
+
+[sub_resource type="Gradient" id="Gradient_sqosm"]
+offsets = PackedFloat32Array(0, 0.991803, 1)
+colors = PackedColorArray(0.607843, 0.141176, 0.0627451, 1, 0.607843, 0.141176, 0.0627451, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jdmqn"]
+gradient = SubResource("Gradient_sqosm")
+
+[sub_resource type="Curve" id="Curve_qbyef"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.389706, 0.382023), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_thiqj"]
+curve = SubResource("Curve_qbyef")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wm0wf"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 120.0
+initial_velocity_max = 250.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+gravity = Vector3(0, 0, 0)
+damping_min = 80.0
+damping_max = 100.0
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_thiqj")
+color_ramp = SubResource("GradientTexture1D_jdmqn")
+turbulence_enabled = true
+turbulence_noise_speed = Vector3(3, 5, 3)
+turbulence_noise_speed_random = 0.33
+turbulence_influence_max = 0.2
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 100
+texture = ExtResource("1_tg034")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wm0wf")
+script = ExtResource("2_sqosm")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
