@@ -155,6 +155,8 @@ animations = [{
 radius = 95.0053
 
 [node name="Zombie" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_w25mp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

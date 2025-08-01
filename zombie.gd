@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var animator = $AnimatedSprite2D
-
+var base_speed = 150
 var player : Node2D
 
 
@@ -23,8 +23,11 @@ func move_zombie() -> void:
 
 	var direction = global_position.direction_to(player.global_position)
 	rotation = direction.angle()
-	velocity = direction * 150
+	velocity = direction * base_speed
 	move_and_slide()		
+	
+func take_damage() -> void:
+	queue_free();
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
