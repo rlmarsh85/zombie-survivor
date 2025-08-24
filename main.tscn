@@ -34,4 +34,5 @@ curve = SubResource("Curve2D_7mycd")
 position = Vector2(-83, -82)
 rotation = 1.5708
 
+[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

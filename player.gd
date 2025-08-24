@@ -1,5 +1,6 @@
 extends Area2D
 
+signal player_died
 
 @export var bullet_scene: PackedScene
 @export var muzzle_scene: PackedScene
@@ -10,6 +11,7 @@ extends Area2D
 @onready var muzzle_flash_spawn_point = $MuzzleFlashSpawn
 @onready var cooldown_timer = $CooldownTimer
 
+@export var is_dead = false
 var screen_size
 
 func _ready() -> void:
@@ -64,5 +66,11 @@ func handle_shoot(event) -> void:
 	muzzle_flash.global_position = muzzle_flash_spawn_point.global_position
 	muzzle_flash.rotation = self.rotation
 	
-	cooldown_timer.start()	
+	cooldown_timer.start()
+	
+func gets_eaten() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
+	is_dead = true
+	hide()
+	player_died.emit()	
 	

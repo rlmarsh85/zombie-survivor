@@ -4,6 +4,7 @@ extends Node
 @export var zombie_spawaner: PackedScene
 @onready var spawn_path = $SpawnBoundary/SpawnPath
 @onready var player = $Player
+@onready var spawnTimer = $SpawnTimer
 
 func _on_spawn_timer_timeout() -> void:
 	var zombie = zombie_spawaner.instantiate()
@@ -16,3 +17,8 @@ func _on_spawn_timer_timeout() -> void:
 	add_child(zombie)
 	
 	zombie.move_zombie()
+
+
+func _on_player_player_died() -> void:
+	spawnTimer.stop()
+	get_tree().call_group("enemies", "stop_moving")
