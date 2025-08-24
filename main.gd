@@ -34,8 +34,7 @@ func _on_player_player_died() -> void:
 func _on_hud_go_button_pressed() -> void:
 	
 	get_tree().call_group("enemies", "queue_free")
-	player.is_dead = false
-		
+	player.resurrect()
 	hud.hide_display()
 	player.show()
 	spawnTimer.start()

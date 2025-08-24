@@ -47,18 +47,30 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		player.gets_eaten()
 
 
-func _on_attack_radius_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player"):
-		animator.animation = "attack"
-		animator.play()
+#func _on_attack_radius_area_entered(area: Area2D) -> void:
+	#if area.is_in_group("player"):
+		#animator.animation = "attack"
+		#animator.play()
+#
+#
+#func _on_attack_radius_area_exited(area: Area2D) -> void:
+	#if area.is_in_group("player"):
+		#animator.animation = "walk"
+		#animator.play()
 
-
-func _on_attack_radius_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player"):
-		animator.animation = "walk"
-		animator.play()
-		
 func stop_moving():
 	animator.animation = "idle"
 	animator.play()
 	velocity = Vector2.ZERO
+
+
+func _on_attack_radius_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		animator.animation = "attack"
+		animator.play()
+
+
+func _on_attack_radius_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		animator.animation = "walk"
+		animator.play()
