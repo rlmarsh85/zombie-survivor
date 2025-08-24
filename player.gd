@@ -11,7 +11,7 @@ signal player_died
 @onready var muzzle_flash_spawn_point = $MuzzleFlashSpawn
 @onready var cooldown_timer = $CooldownTimer
 
-@export var is_dead = false
+@export var is_dead = true
 var screen_size
 
 func _ready() -> void:
@@ -26,6 +26,9 @@ func _unhandled_input(event):
 		handle_shoot(event)
 	
 func set_direction(delta: float) -> void:
+	if(is_dead):
+		return
+		
 	var velocity = Vector2.ZERO
 	
 	if(Input.is_action_pressed("left")):
@@ -54,7 +57,7 @@ func set_direction(delta: float) -> void:
 
 
 func handle_shoot(event) -> void:
-	if(!cooldown_timer.is_stopped()):
+	if(!cooldown_timer.is_stopped() || is_dead):
 		return
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)

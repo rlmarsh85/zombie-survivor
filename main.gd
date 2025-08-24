@@ -5,6 +5,12 @@ extends Node
 @onready var spawn_path = $SpawnBoundary/SpawnPath
 @onready var player = $Player
 @onready var spawnTimer = $SpawnTimer
+@onready var hud = $HUD
+
+func _ready() -> void:
+	player.hide()
+	spawnTimer.stop()
+	hud.display_start_button()
 
 func _on_spawn_timer_timeout() -> void:
 	var zombie = zombie_spawaner.instantiate()
@@ -22,3 +28,14 @@ func _on_spawn_timer_timeout() -> void:
 func _on_player_player_died() -> void:
 	spawnTimer.stop()
 	get_tree().call_group("enemies", "stop_moving")
+	hud.restart_display()
+
+
+func _on_hud_go_button_pressed() -> void:
+	
+	get_tree().call_group("enemies", "queue_free")
+	player.is_dead = false
+		
+	hud.hide_display()
+	player.show()
+	spawnTimer.start()
