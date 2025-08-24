@@ -178,7 +178,7 @@ animations = [{
 radius = 94.0
 
 [node name="Player" type="Area2D"]
-collision_mask = 2
+collision_mask = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_331ug")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0ae168v31gld"]
+[gd_scene load_steps=10 format=3 uid="uid://d0ae168v31gld"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cbxtapagjkb4n" path="res://main.gd" id="1_lquwl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://hud.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://dfdsasuhxpnxf" path="res://crate.tscn" id="8_5vw27"]
 
 [sub_resource type="Curve2D" id="Curve2D_7mycd"]
 _data = {
@@ -36,6 +37,9 @@ position = Vector2(-83, -82)
 rotation = 1.5708
 
 [node name="HUD" parent="." instance=ExtResource("7_272bh")]
+
+[node name="Crate" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(461, 298)
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
