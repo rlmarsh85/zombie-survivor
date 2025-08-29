@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0ae168v31gld"]
+[gd_scene load_steps=11 format=3 uid="uid://d0ae168v31gld"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cbxtapagjkb4n" path="res://main.gd" id="1_lquwl"]
@@ -15,6 +15,12 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5vw27"]
+vertices = PackedVector2Array(585.328, 671.023, 1274.29, 1320.97, -169.008, 1296.32, 329.188, 671.023, -110.867, -218.359, 329.188, 325.547, 1252.49, -230.68, 585.328, 325.547)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(4, 6, 7, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-173.442, -282.809, 1316.58, -296.276, 1340.23, 1387.11, -236.511, 1360.18), PackedVector2Array(394.186, 390.546, 394.186, 606.019, 520.325, 606.019, 520.325, 390.546)])
+agent_radius = 65.0
+
 [node name="Main" type="Node"]
 script = ExtResource("1_lquwl")
 zombie_spawaner = ExtResource("2_7mycd")
@@ -29,6 +35,11 @@ muzzle_scene = ExtResource("4_1bvp3")
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="HUD" parent="." instance=ExtResource("7_272bh")]
+
+[node name="Crate" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(461, 298)
+
 [node name="SpawnBoundary" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7mycd")
 
@@ -36,10 +47,9 @@ curve = SubResource("Curve2D_7mycd")
 position = Vector2(-83, -82)
 rotation = 1.5708
 
-[node name="HUD" parent="." instance=ExtResource("7_272bh")]
-
-[node name="Crate" parent="." instance=ExtResource("8_5vw27")]
-position = Vector2(461, 298)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+scale = Vector2(1.01475, 0.59404)
+navigation_polygon = SubResource("NavigationPolygon_5vw27")
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

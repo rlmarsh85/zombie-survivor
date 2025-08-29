@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animator = $AnimatedSprite2D
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 const DeathEffect = preload("res://zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
@@ -15,7 +16,7 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not player:
 		return
 	
@@ -24,10 +25,14 @@ func _process(delta: float) -> void:
 func move_zombie() -> void:
 	if not player || player.is_dead:
 		return
-
-	var direction = global_position.direction_to(player.global_position)
-	rotation = direction.angle()
-	velocity = direction * base_speed
+	
+	navigation_agent.target_position = player.global_position
+	var current_agent_position = global_position
+	
+	var direction: Vector2 = navigation_agent.get_next_path_position()
+	
+	rotation = global_position.direction_to(direction).angle()
+	velocity = current_agent_position.direction_to(direction) * base_speed
 	move_and_slide()		
 	
 func take_damage() -> void:
@@ -46,17 +51,6 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	if $AnimatedSprite2D.animation == "attack" and $AnimatedSprite2D.frame == ATTACK_FRAME_INDEX:
 		player.gets_eaten()
 
-
-#func _on_attack_radius_area_entered(area: Area2D) -> void:
-	#if area.is_in_group("player"):
-		#animator.animation = "attack"
-		#animator.play()
-#
-#
-#func _on_attack_radius_area_exited(area: Area2D) -> void:
-	#if area.is_in_group("player"):
-		#animator.animation = "walk"
-		#animator.play()
 
 func stop_moving():
 	animator.animation = "idle"
