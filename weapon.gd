@@ -18,6 +18,9 @@ func muzzle_flash(muzzle_scene):
 	muzzle_flash.global_position = get_muzzle_spawn_point().global_position
 	muzzle_flash.rotation = self.rotation
 	
+func fire(bullet_scene,bullet_spawn_point):
+	pass
+	
 func get_muzzle_spawn_point():
 	return muzzle_spawn_point
 	

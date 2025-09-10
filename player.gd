@@ -70,10 +70,7 @@ func handle_shoot(event) -> void:
 	if(!cooldown_timer.is_stopped() || is_dead):
 		return
 		
-	var bullet = bullet_scene.instantiate()
-	get_parent().add_child(bullet)
-	bullet.global_position = bullet_spawn_point.global_position
-	bullet.rotation = self.rotation	
+	current_weapon.fire(bullet_scene, bullet_spawn_point)
 	
 	current_weapon.muzzle_flash(muzzle_scene)
 	current_weapon.is_shooting = true
