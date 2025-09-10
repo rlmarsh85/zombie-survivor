@@ -18,12 +18,14 @@ enum State { IDLE, WALKING }
 @export var is_dead = true
 var current_state = State.IDLE
 var is_walking = false
-var is_shooting = false
+
+var current_weapon : Weapon
 
 var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	current_weapon = Pistol.new()
 	
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
@@ -33,6 +35,17 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		handle_shoot(event)
+	if event.is_action_pressed("switch_weapon"):
+		rotate_weapon()
+
+func rotate_weapon():
+	if(current_weapon.is_shooting || is_dead):
+		return
+		
+	if(current_weapon is Pistol ):
+		current_weapon = Shotgun.new()
+	else:
+		current_weapon = Pistol.new()
 		
 func set_direction(delta):
 	if is_dead:
@@ -64,18 +77,18 @@ func handle_shoot(event) -> void:
 	muzzle_flash.global_position = muzzle_flash_spawn_point.global_position
 	muzzle_flash.rotation = self.rotation
 	
-	is_shooting = true
+	current_weapon.is_shooting = true
 
 	cooldown_timer.start()
 	
 func handle_animation():
-	if is_shooting:
-		animator.animation = "shoot_pistol"
+	if current_weapon.is_shooting:
+		animator.animation = current_weapon.get_shoot_animation()
 	else:
 		if is_walking:
-			animator.animation = "walk_pistol"
+			animator.animation = current_weapon.get_walk_animation()
 		else:
-			animator.animation = "idle_pistol"
+			animator.animation = current_weapon.get_idle_animation()
 	
 	animator.play()
 	
@@ -92,5 +105,5 @@ func resurrect() -> void:
 	
 func _on_animated_sprite_2d_animation_finished() -> void:
 	
-	if animator.animation == "shoot_pistol":
-		is_shooting = false
+	if animator.animation == current_weapon.get_shoot_animation():
+		current_weapon.is_shooting = false

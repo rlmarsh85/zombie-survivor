@@ -217,7 +217,7 @@ animations = [{
 "texture": ExtResource("40_dtw5u")
 }],
 "loop": true,
-"name": &"idol_shotgun",
+"name": &"idle_shotgun",
 "speed": 5.0
 }, {
 "frames": [{
@@ -244,7 +244,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("46_hhr50")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot_shotgun",
 "speed": 5.0
 }, {
@@ -374,9 +374,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("86_sd4eq")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk_shotgun",
-"speed": 5.0
+"speed": 19.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbfsw"]
@@ -388,7 +388,7 @@ script = ExtResource("1_c0yt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_331ug")
-animation = &"walk_pistol"
+animation = &"walk_shotgun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 15)
