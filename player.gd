@@ -11,7 +11,8 @@ enum State { IDLE, WALKING }
 
 # A reference to our spawn position marker.
 @onready var bullet_spawn_point = $BulletSpawn
-@onready var muzzle_flash_spawn_point = $MuzzleFlashSpawn
+@onready var pistol_muzzle_flash_spawn_point = $PistolMuzzleFlashSpawn
+@onready var shotgun_muzzle_flash_spawn_point = $ShotgunMuzzleFlashSpawn
 @onready var cooldown_timer = $CooldownTimer
 @onready var animator = $AnimatedSprite2D
 
@@ -25,7 +26,7 @@ var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	current_weapon = Pistol.new()
+	current_weapon = Pistol.new(pistol_muzzle_flash_spawn_point, self)
 	
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
@@ -43,9 +44,9 @@ func rotate_weapon():
 		return
 		
 	if(current_weapon is Pistol ):
-		current_weapon = Shotgun.new()
+		current_weapon = Shotgun.new(shotgun_muzzle_flash_spawn_point, self)
 	else:
-		current_weapon = Pistol.new()
+		current_weapon = Pistol.new(pistol_muzzle_flash_spawn_point, self)
 		
 func set_direction(delta):
 	if is_dead:
@@ -65,20 +66,19 @@ func set_direction(delta):
 	handle_animation()
 
 func handle_shoot(event) -> void:
+	
 	if(!cooldown_timer.is_stopped() || is_dead):
 		return
+		
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
 	bullet.global_position = bullet_spawn_point.global_position
 	bullet.rotation = self.rotation	
 	
-	var muzzle_flash = muzzle_scene.instantiate()
-	get_parent().add_child(muzzle_flash)
-	muzzle_flash.global_position = muzzle_flash_spawn_point.global_position
-	muzzle_flash.rotation = self.rotation
-	
+	current_weapon.muzzle_flash(muzzle_scene)
 	current_weapon.is_shooting = true
-
+	
+	cooldown_timer.wait_time = current_weapon.get_cooldown_time()
 	cooldown_timer.start()
 	
 func handle_animation():

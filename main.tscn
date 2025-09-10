@@ -31,6 +31,7 @@ bullet_scene = ExtResource("3_h2yge")
 muzzle_scene = ExtResource("4_1bvp3")
 
 [node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 30.0
 autostart = true
 
 [node name="HUD" parent="." instance=ExtResource("7_272bh")]

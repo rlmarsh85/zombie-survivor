@@ -388,7 +388,7 @@ script = ExtResource("1_c0yt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_331ug")
-animation = &"walk_shotgun"
+animation = &"idle_shotgun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 15)
@@ -397,12 +397,18 @@ shape = SubResource("CircleShape2D_pbfsw")
 [node name="BulletSpawn" type="Marker2D" parent="."]
 position = Vector2(123, 53)
 
-[node name="MuzzleFlashSpawn" type="Marker2D" parent="."]
+[node name="PistolMuzzleFlashSpawn" type="Marker2D" parent="."]
 position = Vector2(136, 53)
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="MuzzleFlashSpawn" type="Marker2D" parent="."]
+position = Vector2(272, 106)
+
+[node name="ShotgunMuzzleFlashSpawn" type="Marker2D" parent="."]
+position = Vector2(158, 49)
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
