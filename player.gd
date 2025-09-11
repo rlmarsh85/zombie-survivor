@@ -7,6 +7,8 @@ const PISTOL_SCENE = preload("res://pistol.tscn")
 const SHOTGUN_SCENE = preload("res://shotgun.tscn")
 
 
+
+
 @export var speed = 600
 @onready var weapon_container = $WeaponContainer
 @onready var animator = $AnimatedSprite2D
@@ -15,14 +17,17 @@ const SHOTGUN_SCENE = preload("res://shotgun.tscn")
 var current_state = State.IDLE
 var is_walking = false
 
+var weapons
 var current_weapon : Weapon
 
 var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	current_weapon =  PISTOL_SCENE.instantiate()
-	weapon_container.add_child(current_weapon)
+	weapons = [PISTOL_SCENE.instantiate(), SHOTGUN_SCENE.instantiate()]
+	current_weapon = weapons[0]
+	for weapon in weapons:
+		weapon_container.add_child(weapon)
 	
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
@@ -39,17 +44,18 @@ func _unhandled_input(event):
 
 func rotate_weapon():
 
-	if(current_weapon.is_shooting || is_dead):
+	if(current_weapon.is_shooting || is_dead || current_weapon.is_reloading):
 		return
-		
-	if(current_weapon is Pistol ):
-		current_weapon.queue_free()
-		current_weapon =  SHOTGUN_SCENE.instantiate()		
-	else:
-		current_weapon.queue_free()
-		current_weapon =  PISTOL_SCENE.instantiate()
-		
-	weapon_container.add_child(current_weapon)
+	
+	for i in weapons.size():
+		if(i == weapons.size() - 1):
+			current_weapon = weapons[0]
+			break			
+			
+		if(weapons[i].get_weapon_name() == current_weapon.get_weapon_name()):
+			current_weapon = weapons[i + 1]
+			break
+
 		
 func set_direction(delta):
 	if is_dead:

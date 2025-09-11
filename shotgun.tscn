@@ -98,6 +98,7 @@ bullet_scene = ExtResource("2_j27jn")
 muzzle_scene = ExtResource("3_86ymi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_syw4h")
 
 [node name="MuzzleFlashPoint" type="Node2D" parent="."]
