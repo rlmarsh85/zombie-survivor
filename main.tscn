@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0ae168v31gld"]
+[gd_scene load_steps=8 format=3 uid="uid://d0ae168v31gld"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cbxtapagjkb4n" path="res://main.gd" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dxf5hv164sji5" path="res://zombie.tscn" id="2_7mycd"]
-[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://hud.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dfdsasuhxpnxf" path="res://crate.tscn" id="8_5vw27"]
 
@@ -27,8 +25,8 @@ zombie_spawaner = ExtResource("2_7mycd")
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_ig7tw")]
 position = Vector2(684, 271)
 scale = Vector2(1.0032, 0.966573)
-bullet_scene = ExtResource("3_h2yge")
-muzzle_scene = ExtResource("4_1bvp3")
+speed = 600
+is_dead = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true

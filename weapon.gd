@@ -5,24 +5,37 @@ class_name Weapon
 var weapon_name : String
 var is_shooting = false
 var cooldown_time : float
-var muzzle_spawn_point : Node2D
-var player : Node2D
 
-func _init(specific_muzzle_spawn_point:Node2D, weapon_owner:Node2D) -> void:
-	muzzle_spawn_point = specific_muzzle_spawn_point
-	player = weapon_owner
-	
-func muzzle_flash(muzzle_scene):
-	var muzzle_flash = muzzle_scene.instantiate()
-	player.add_child(muzzle_flash)
-	muzzle_flash.global_position = get_muzzle_spawn_point().global_position
-	muzzle_flash.rotation = self.rotation
-	
-func fire(bullet_scene,bullet_spawn_point):
+@export var bullet_scene: PackedScene
+@export var muzzle_scene: PackedScene
+
+@onready var bullet_spawn_point = $BulletSpawnPoint
+@onready var muzzle_flash_point = $MuzzleFlashPoint
+@onready var cooldown_timer = $CooldownTimer
+
+
+func _init() -> void:
 	pass
+
+func _ready() -> void:
+	cooldown_timer.wait_time = cooldown_time
 	
-func get_muzzle_spawn_point():
-	return muzzle_spawn_point
+func muzzle_flash():
+	var muzzle_flash = muzzle_scene.instantiate()
+	add_child(muzzle_flash)
+	muzzle_flash.global_position = muzzle_flash_point.global_position
+	muzzle_flash.rotation = self.rotation
+
+
+func is_ready():
+	if(cooldown_timer.is_stopped()):
+		return true
+	
+	return false
+	
+func fire():
+	
+	cooldown_timer.start()
 	
 func get_cooldown_time():
 	return cooldown_time

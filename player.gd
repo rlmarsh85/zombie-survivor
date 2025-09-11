@@ -3,17 +3,12 @@ extends CharacterBody2D
 signal player_died
 
 enum State { IDLE, WALKING }
+const PISTOL_SCENE = preload("res://pistol.tscn")
+const SHOTGUN_SCENE = preload("res://shotgun.tscn")
 
 
-@export var bullet_scene: PackedScene
-@export var muzzle_scene: PackedScene
 @export var speed = 600
-
-# A reference to our spawn position marker.
-@onready var bullet_spawn_point = $BulletSpawn
-@onready var pistol_muzzle_flash_spawn_point = $PistolMuzzleFlashSpawn
-@onready var shotgun_muzzle_flash_spawn_point = $ShotgunMuzzleFlashSpawn
-@onready var cooldown_timer = $CooldownTimer
+@onready var weapon_container = $WeaponContainer
 @onready var animator = $AnimatedSprite2D
 
 @export var is_dead = true
@@ -26,7 +21,8 @@ var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	current_weapon = Pistol.new(pistol_muzzle_flash_spawn_point, self)
+	current_weapon =  PISTOL_SCENE.instantiate()
+	weapon_container.add_child(current_weapon)
 	
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
@@ -40,13 +36,18 @@ func _unhandled_input(event):
 		rotate_weapon()
 
 func rotate_weapon():
+
 	if(current_weapon.is_shooting || is_dead):
 		return
 		
 	if(current_weapon is Pistol ):
-		current_weapon = Shotgun.new(shotgun_muzzle_flash_spawn_point, self)
+		current_weapon.queue_free()
+		current_weapon =  SHOTGUN_SCENE.instantiate()		
 	else:
-		current_weapon = Pistol.new(pistol_muzzle_flash_spawn_point, self)
+		current_weapon.queue_free()
+		current_weapon =  PISTOL_SCENE.instantiate()
+		
+	weapon_container.add_child(current_weapon)
 		
 func set_direction(delta):
 	if is_dead:
@@ -67,17 +68,12 @@ func set_direction(delta):
 
 func handle_shoot(event) -> void:
 	
-	if(!cooldown_timer.is_stopped() || is_dead):
+	if(!current_weapon.is_ready() || is_dead):
 		return
 		
-	current_weapon.fire(bullet_scene, bullet_spawn_point)
+	current_weapon.fire()
 	
-	current_weapon.muzzle_flash(muzzle_scene)
-	current_weapon.is_shooting = true
-	
-	cooldown_timer.wait_time = current_weapon.get_cooldown_time()
-	cooldown_timer.start()
-	
+
 func handle_animation():
 	if current_weapon.is_shooting:
 		animator.animation = current_weapon.get_shoot_animation()
@@ -101,6 +97,6 @@ func resurrect() -> void:
 	
 	
 func _on_animated_sprite_2d_animation_finished() -> void:
-	
+	pass
 	if animator.animation == current_weapon.get_shoot_animation():
 		current_weapon.is_shooting = false
