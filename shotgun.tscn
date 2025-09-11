@@ -108,3 +108,8 @@ position = Vector2(146, 48)
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

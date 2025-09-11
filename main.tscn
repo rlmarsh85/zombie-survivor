@@ -25,8 +25,6 @@ zombie_spawaner = ExtResource("2_7mycd")
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_ig7tw")]
 position = Vector2(684, 271)
 scale = Vector2(1.0032, 0.966573)
-speed = 600
-is_dead = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true

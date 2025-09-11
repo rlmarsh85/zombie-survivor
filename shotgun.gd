@@ -6,6 +6,8 @@ class_name Shotgun
 func _init() -> void:
 	weapon_name = "shotgun"	
 	cooldown_time = 1.0
+	max_shots = 6
+	reload_time = 4.0
 	super()
 
 	
@@ -24,4 +26,7 @@ func fire():
 		bullet.rotation = new_rotation
 		angle_offset += angle_step
 	
+	super()
+
+func _on_reload_timer_timeout() -> void:
 	super()

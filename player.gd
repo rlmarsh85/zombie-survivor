@@ -34,6 +34,8 @@ func _unhandled_input(event):
 		handle_shoot(event)
 	if event.is_action_pressed("switch_weapon"):
 		rotate_weapon()
+	if event.is_action_pressed("Reload"):
+		current_weapon.reload()
 
 func rotate_weapon():
 
@@ -97,6 +99,6 @@ func resurrect() -> void:
 	
 	
 func _on_animated_sprite_2d_animation_finished() -> void:
-	pass
+	
 	if animator.animation == current_weapon.get_shoot_animation():
 		current_weapon.is_shooting = false
