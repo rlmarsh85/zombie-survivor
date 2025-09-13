@@ -18,6 +18,8 @@ var reload_time : float
 @onready var muzzle_flash_point = $MuzzleFlashPoint
 @onready var cooldown_timer = $CooldownTimer
 @onready var reload_timer = $ReloadTimer
+@onready var shoot_sound = $ShootSound
+@onready var reload_sound = $ReloadSound
 
 
 func _init() -> void:
@@ -36,6 +38,7 @@ func muzzle_flash():
 func reload():
 	is_reloading = true
 	reload_timer.start()
+	reload_sound.play()
 
 func is_ready():
 	if(!cooldown_timer.is_stopped()):
@@ -55,7 +58,8 @@ func fire():
 	cooldown_timer.start()
 	current_shots = current_shots + 1
 	
-	print (current_shots)
+	shoot_sound.play()
+	
 	
 func get_cooldown_time():
 	return cooldown_time

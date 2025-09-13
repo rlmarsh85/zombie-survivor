@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dxf5hv164sji5"]
+[gd_scene load_steps=53 format=3 uid="uid://dxf5hv164sji5"]
 
 [ext_resource type="Texture2D" uid="uid://cfgeoon6igxjj" path="res://assets/zombie/skeleton-idle_0.png" id="1_s5wjl"]
 [ext_resource type="Script" uid="uid://begt24v412osf" path="res://zombie.gd" id="1_w25mp"]
@@ -44,6 +44,10 @@
 [ext_resource type="Texture2D" uid="uid://day66adrj4qwt" path="res://assets/zombie/skeleton-move_14.png" id="32_s8m32"]
 [ext_resource type="Texture2D" uid="uid://kiktqlkdei4f" path="res://assets/zombie/skeleton-move_15.png" id="33_nhxi7"]
 [ext_resource type="Texture2D" uid="uid://cuna2fbqb7467" path="res://assets/zombie/skeleton-move_16.png" id="34_hbhvj"]
+[ext_resource type="AudioStream" uid="uid://bqj4wx6fc2b4v" path="res://assets/sounds/zombie/zombie-1.mp3" id="45_t3gwa"]
+[ext_resource type="AudioStream" uid="uid://ddqrotsf8ixq0" path="res://assets/sounds/zombie/zombie-2.ogg" id="46_jsthx"]
+[ext_resource type="AudioStream" uid="uid://d6vta3c1tkx3" path="res://assets/sounds/zombie/zombie-3.mp3" id="47_32baa"]
+[ext_resource type="AudioStream" uid="uid://costfcatmftjp" path="res://assets/sounds/zombie/attack.wav" id="48_jsthx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ls26a"]
 animations = [{
@@ -233,6 +237,24 @@ shape = SubResource("CircleShape2D_maxkh")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 180.0
+
+[node name="ZombieSounds" type="Node2D" parent="."]
+
+[node name="Moan1" type="AudioStreamPlayer2D" parent="ZombieSounds"]
+stream = ExtResource("45_t3gwa")
+parameters/looping = true
+
+[node name="Moan2" type="AudioStreamPlayer2D" parent="ZombieSounds"]
+stream = ExtResource("46_jsthx")
+parameters/looping = true
+
+[node name="Moan3" type="AudioStreamPlayer2D" parent="ZombieSounds"]
+stream = ExtResource("47_32baa")
+parameters/looping = true
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-12, 10)
+stream = ExtResource("48_jsthx")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

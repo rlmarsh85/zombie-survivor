@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 @onready var animator = $AnimatedSprite2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var zombie_sound_container: Node2D = $ZombieSounds
+
+@onready var attack_sound: Node2D = $AttackSound
+
 
 const DeathEffect = preload("res://zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
@@ -14,6 +18,8 @@ func _ready() -> void:
 	animator.animation = "walk"
 	animator.play()
 	player = get_tree().get_first_node_in_group("player")
+	
+	play_zombie_sounds()
 
 
 func _physics_process(delta: float) -> void:
@@ -37,9 +43,11 @@ func move_zombie() -> void:
 	
 func take_damage() -> void:
 	var death_effect = DeathEffect.instantiate()
+	
 	get_parent().add_child(death_effect)
 	death_effect.global_position = global_position
 	death_effect.emitting = true
+		
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -58,10 +66,16 @@ func stop_moving():
 	velocity = Vector2.ZERO
 
 
+func play_zombie_sounds():
+	var sound = zombie_sound_container.get_children().pick_random()
+	sound.play()
+
+
 func _on_attack_radius_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		animator.animation = "attack"
 		animator.play()
+		attack_sound.play()
 
 
 func _on_attack_radius_body_exited(body: Node2D) -> void:

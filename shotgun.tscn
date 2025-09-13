@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bo32ip2l4ul5g"]
+[gd_scene load_steps=28 format=3 uid="uid://bo32ip2l4ul5g"]
 
 [ext_resource type="Script" uid="uid://bbch43kyldldj" path="res://shotgun.gd" id="1_hn68x"]
 [ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="2_j27jn"]
@@ -23,6 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://bctodh5f7k6hy" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_17.png" id="19_d7fw5"]
 [ext_resource type="Texture2D" uid="uid://csl0t5qe2kots" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_18.png" id="20_o3km1"]
 [ext_resource type="Texture2D" uid="uid://23o2fk0os4ag" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_19.png" id="21_3c2j0"]
+[ext_resource type="AudioStream" uid="uid://b1bghcp6lco14" path="res://assets/sounds/weapons/shotgun-shot.mp3" id="24_86ymi"]
+[ext_resource type="AudioStream" uid="uid://nscoa6g0n25v" path="res://assets/sounds/weapons/shotgun_reload.mp3" id="25_m2u14"]
+[ext_resource type="AudioStream" uid="uid://dx1ym7cvodxi" path="res://assets/sounds/weapons/shotgun_rack.mp3" id="26_youc3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_syw4h"]
 animations = [{
@@ -112,5 +115,14 @@ one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_86ymi")
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_m2u14")
+
+[node name="CockSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("26_youc3")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

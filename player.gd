@@ -6,7 +6,8 @@ enum State { IDLE, WALKING }
 const PISTOL_SCENE = preload("res://pistol.tscn")
 const SHOTGUN_SCENE = preload("res://shotgun.tscn")
 
-
+@onready var walk_sound: AudioStreamPlayer2D = $Footstep
+@onready var death_sound: AudioStreamPlayer2D = $DeathSound
 
 
 @export var speed = 600
@@ -24,11 +25,15 @@ var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	initialize_weapons()
+
+
+func initialize_weapons():
 	weapons = [PISTOL_SCENE.instantiate(), SHOTGUN_SCENE.instantiate()]
 	current_weapon = weapons[0]
 	for weapon in weapons:
 		weapon_container.add_child(weapon)
-	
+			
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	set_direction(delta)
@@ -67,10 +72,14 @@ func set_direction(delta):
 	if is_walking:
 		velocity = direction * speed
 		current_state = State.WALKING
+		if(!walk_sound.is_playing()):
+			walk_sound.play()
 		
 	else:
 		current_state = State.IDLE
 		velocity = Vector2.ZERO
+		if(walk_sound.is_playing()):
+			walk_sound.stop()
 		
 	handle_animation()
 
@@ -95,12 +104,14 @@ func handle_animation():
 	
 func gets_eaten() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
+	death_sound.play()
 	is_dead = true
 	hide()
 	player_died.emit()	
 	
 func resurrect() -> void:
 	is_dead = false
+	initialize_weapons()
 	$CollisionShape2D.set_deferred("disabled", false)
 	
 	

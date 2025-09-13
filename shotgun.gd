@@ -2,6 +2,7 @@ extends Weapon
 
 class_name Shotgun
 
+@onready var cock_sound = $CockSound
 
 func _init() -> void:
 	weapon_name = "shotgun"	
@@ -26,7 +27,11 @@ func fire():
 		bullet.rotation = new_rotation
 		angle_offset += angle_step
 	
+	
+	
 	super()
+	await get_tree().create_timer(0.3).timeout
+	cock_sound.play()
 
 func _on_reload_timer_timeout() -> void:
 	super()

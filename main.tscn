@@ -27,7 +27,6 @@ position = Vector2(684, 271)
 scale = Vector2(1.0032, 0.966573)
 
 [node name="SpawnTimer" type="Timer" parent="."]
-autostart = true
 
 [node name="HUD" parent="." instance=ExtResource("7_272bh")]
 

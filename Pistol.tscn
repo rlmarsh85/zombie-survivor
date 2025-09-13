@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xtbd0pm4yt0m"]
+[gd_scene load_steps=27 format=3 uid="uid://xtbd0pm4yt0m"]
 
 [ext_resource type="Script" uid="uid://boyh22i860hn6" path="res://pistol.gd" id="1_1e1q2"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png" id="2_bhi57"]
@@ -23,6 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://4hag6k1ahsb4" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_17.png" id="19_rp5p1"]
 [ext_resource type="Texture2D" uid="uid://btvwlhyc4pkuq" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_18.png" id="20_esjqu"]
 [ext_resource type="Texture2D" uid="uid://b6uy6v6mjjdwd" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_19.png" id="21_ywdqx"]
+[ext_resource type="AudioStream" uid="uid://c262hnaedyyfy" path="res://assets/sounds/weapons/pistol-shot.mp3" id="24_286is"]
+[ext_resource type="AudioStream" uid="uid://chqjphffol8w4" path="res://assets/sounds/weapons/pistol_reload.mp3" id="25_y6eha"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sufqc"]
 animations = [{
@@ -112,5 +114,11 @@ one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_286is")
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_y6eha")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://bvitx3lov2d7c"]
+[gd_scene load_steps=92 format=3 uid="uid://bvitx3lov2d7c"]
 
 [ext_resource type="Script" uid="uid://dav4nn5o5cgjh" path="res://player.gd" id="1_c0yt3"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png" id="1_pbfsw"]
@@ -87,6 +87,8 @@
 [ext_resource type="Texture2D" uid="uid://cee6obiek7dah" path="res://assets/Top_Down_Survivor/shotgun/move/survivor-move_shotgun_17.png" id="84_cye81"]
 [ext_resource type="Texture2D" uid="uid://tvkr2pfvuxei" path="res://assets/Top_Down_Survivor/shotgun/move/survivor-move_shotgun_18.png" id="85_mftst"]
 [ext_resource type="Texture2D" uid="uid://bwceitpmu0hss" path="res://assets/Top_Down_Survivor/shotgun/move/survivor-move_shotgun_19.png" id="86_sd4eq"]
+[ext_resource type="AudioStream" uid="uid://bpvnbsy3664ui" path="res://assets/sounds/player/footstep.mp3" id="88_uckl6"]
+[ext_resource type="AudioStream" uid="uid://cjo7peddmct0s" path="res://assets/sounds/player/death2.mp3" id="89_5ihbc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_331ug"]
 animations = [{
@@ -395,6 +397,14 @@ position = Vector2(-8, 15)
 shape = SubResource("CircleShape2D_pbfsw")
 
 [node name="WeaponContainer" type="Node2D" parent="."]
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("88_uckl6")
+parameters/looping = true
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("89_5ihbc")
+volume_db = 10.895
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
