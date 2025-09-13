@@ -14,7 +14,7 @@ func _init() -> void:
 	
 func fire():
 	var angle_offset = -10  # Starting angle for the first bullet, to center the spread
-	var angle_step = 2      # Angle between each bullet
+	var angle_step = 6      # Angle between each bullet
 	muzzle_flash()
 	
 	for i in range(6):
