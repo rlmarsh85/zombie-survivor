@@ -5,6 +5,7 @@ signal player_died
 enum State { IDLE, WALKING }
 const PISTOL_SCENE = preload("res://pistol.tscn")
 const SHOTGUN_SCENE = preload("res://shotgun.tscn")
+const RIFLE_SCENE = preload("res://rifle.tscn")
 
 @onready var walk_sound: AudioStreamPlayer2D = $Footstep
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
@@ -29,7 +30,11 @@ func _ready() -> void:
 
 
 func initialize_weapons():
-	weapons = [PISTOL_SCENE.instantiate(), SHOTGUN_SCENE.instantiate()]
+	weapons = [
+		PISTOL_SCENE.instantiate(), 
+		SHOTGUN_SCENE.instantiate(), 
+		RIFLE_SCENE.instantiate()
+	]
 	current_weapon = weapons[0]
 	for weapon in weapons:
 		weapon_container.add_child(weapon)
