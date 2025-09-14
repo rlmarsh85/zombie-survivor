@@ -99,6 +99,7 @@ animations = [{
 script = ExtResource("1_hn68x")
 bullet_scene = ExtResource("2_j27jn")
 muzzle_scene = ExtResource("3_86ymi")
+shoot_sound = ExtResource("24_86ymi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -115,9 +116,6 @@ one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("24_86ymi")
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_m2u14")

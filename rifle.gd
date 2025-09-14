@@ -4,9 +4,10 @@ class_name Rifle
 
 func _init() -> void:
 	weapon_name = "rifle"
-	cooldown_time = 0.01
+	cooldown_time = 0.2
 	max_shots = 30
 	reload_time = 3.0
+	is_automatic = true
 	super()
 	
 func fire():

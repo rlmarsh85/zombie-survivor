@@ -354,7 +354,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("67_3ecvt")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot_rifle",
 "speed": 5.0
 }, {
@@ -498,7 +498,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("110_6ihcq")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk_rifle",
 "speed": 5.0
 }, {
@@ -577,7 +577,7 @@ script = ExtResource("1_c0yt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_331ug")
-animation = &"shoot_rifle"
+animation = &"idle_pistol"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 15)

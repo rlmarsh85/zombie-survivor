@@ -10,15 +10,16 @@ var cooldown_time : float
 var max_shots : int
 var current_shots : int
 var reload_time : float
+var is_automatic : bool
 
 @export var bullet_scene: PackedScene
 @export var muzzle_scene: PackedScene
+@export var shoot_sound: AudioStream
 
 @onready var bullet_spawn_point = $BulletSpawnPoint
 @onready var muzzle_flash_point = $MuzzleFlashPoint
 @onready var cooldown_timer = $CooldownTimer
 @onready var reload_timer = $ReloadTimer
-@onready var shoot_sound = $ShootSound
 @onready var reload_sound = $ReloadSound
 
 
@@ -40,7 +41,11 @@ func reload():
 	reload_timer.start()
 	reload_sound.play()
 
-func is_ready():
+func is_ready(is_automatic_fire = false):
+	
+	if(is_automatic_fire && !is_automatic):
+		return false
+	
 	if(!cooldown_timer.is_stopped()):
 		return false
 	
@@ -58,7 +63,11 @@ func fire():
 	cooldown_timer.start()
 	current_shots = current_shots + 1
 	
-	shoot_sound.play()
+	var sound_player = AudioStreamPlayer.new()
+	sound_player.stream = shoot_sound
+	add_child(sound_player)
+	sound_player.play()
+	sound_player.finished.connect(sound_player.queue_free)
 	
 	
 func get_cooldown_time():
