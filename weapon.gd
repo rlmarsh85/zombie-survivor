@@ -11,6 +11,7 @@ var max_shots : int
 var current_shots : int
 var reload_time : float
 var is_automatic : bool
+var reload_size: int
 
 @export var bullet_scene: PackedScene
 @export var muzzle_scene: PackedScene
@@ -24,7 +25,7 @@ var is_automatic : bool
 
 
 func _init() -> void:
-	current_shots = 0
+	current_shots = max_shots
 
 func _ready() -> void:
 	cooldown_timer.wait_time = cooldown_time
@@ -35,11 +36,15 @@ func muzzle_flash():
 	add_child(muzzle_flash)
 	muzzle_flash.global_position = muzzle_flash_point.global_position
 	muzzle_flash.rotation = self.rotation
+	
+func is_full():
+	return current_shots == max_shots
 
 func reload():
-	is_reloading = true
-	reload_timer.start()
-	reload_sound.play()
+	if !is_full() && not is_reloading:
+		is_reloading = true
+		reload_timer.start()
+		reload_sound.play()
 
 func is_ready(is_automatic_fire = false):
 	
@@ -49,7 +54,7 @@ func is_ready(is_automatic_fire = false):
 	if(!cooldown_timer.is_stopped()):
 		return false
 	
-	if(current_shots >= max_shots):
+	if(current_shots <= 0):
 		return false
 	
 	if(is_reloading):
@@ -61,7 +66,7 @@ func fire():
 	
 	is_shooting = true
 	cooldown_timer.start()
-	current_shots = current_shots + 1
+	current_shots = current_shots - 1
 	
 	var sound_player = AudioStreamPlayer.new()
 	sound_player.stream = shoot_sound
@@ -82,9 +87,12 @@ func get_walk_animation():
 func get_idle_animation():
 	return "idle_" + weapon_name
 	
+func get_reload_animation():
+	return "reload_" + weapon_name	
+	
 func get_shoot_animation():
 	return "shoot_" + weapon_name
 
 func _on_reload_timer_timeout() -> void:
 	is_reloading = false
-	current_shots = 0
+	current_shots = min(current_shots + reload_size, max_shots)

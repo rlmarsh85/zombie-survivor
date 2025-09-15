@@ -7,6 +7,7 @@ func _init() -> void:
 	cooldown_time = 0.2
 	max_shots = 30
 	reload_time = 3.0
+	reload_size = max_shots
 	is_automatic = true
 	super()
 	

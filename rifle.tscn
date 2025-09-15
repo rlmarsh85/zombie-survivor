@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cdylr3khlf3vo" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png" id="2_o26v7"]
 [ext_resource type="Texture2D" uid="uid://bkh77afdcwlid" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_1.png" id="3_d5040"]
 [ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="3_tm75y"]
+[ext_resource type="AudioStream" uid="uid://bbcqk574xhvmd" path="res://assets/sounds/weapons/rifle-shot-2.mp3" id="4_c58fl"]
 [ext_resource type="Texture2D" uid="uid://cg2gsk2wsedi0" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_2.png" id="4_krc13"]
 [ext_resource type="Texture2D" uid="uid://cfcd564x64v7j" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_3.png" id="5_c58fl"]
 [ext_resource type="Texture2D" uid="uid://3vbv6w41oxdk" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_4.png" id="6_f8nb7"]
@@ -23,8 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://d01idp6cwgf4j" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_17.png" id="19_5ttxe"]
 [ext_resource type="Texture2D" uid="uid://dckys5ovvgu08" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_18.png" id="20_8yw01"]
 [ext_resource type="Texture2D" uid="uid://cn3accuh01fye" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_19.png" id="21_tjwi8"]
-[ext_resource type="AudioStream" uid="uid://c262hnaedyyfy" path="res://assets/sounds/weapons/pistol-shot.mp3" id="22_eo7g0"]
-[ext_resource type="AudioStream" uid="uid://nscoa6g0n25v" path="res://assets/sounds/weapons/shotgun_reload.mp3" id="25_dt824"]
+[ext_resource type="AudioStream" uid="uid://41yj3sx3wiyh" path="res://assets/sounds/weapons/rifle-reload.mp3" id="25_f8nb7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_syw4h"]
 animations = [{
@@ -98,7 +98,7 @@ animations = [{
 script = ExtResource("1_d5040")
 bullet_scene = ExtResource("2_f8nb7")
 muzzle_scene = ExtResource("3_tm75y")
-shoot_sound = ExtResource("22_eo7g0")
+shoot_sound = ExtResource("4_c58fl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -118,6 +118,6 @@ one_shot = true
 one_shot = true
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("25_dt824")
+stream = ExtResource("25_f8nb7")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

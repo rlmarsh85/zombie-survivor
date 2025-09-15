@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://csl0t5qe2kots" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_18.png" id="20_o3km1"]
 [ext_resource type="Texture2D" uid="uid://23o2fk0os4ag" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_19.png" id="21_3c2j0"]
 [ext_resource type="AudioStream" uid="uid://b1bghcp6lco14" path="res://assets/sounds/weapons/shotgun-shot.mp3" id="24_86ymi"]
-[ext_resource type="AudioStream" uid="uid://nscoa6g0n25v" path="res://assets/sounds/weapons/shotgun_reload.mp3" id="25_m2u14"]
+[ext_resource type="AudioStream" uid="uid://b06shwsqlp16b" path="res://assets/sounds/weapons/shotgun_reload_short.mp3" id="25_youc3"]
 [ext_resource type="AudioStream" uid="uid://dx1ym7cvodxi" path="res://assets/sounds/weapons/shotgun_rack.mp3" id="26_youc3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_syw4h"]
@@ -118,7 +118,7 @@ one_shot = true
 one_shot = true
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("25_m2u14")
+stream = ExtResource("25_youc3")
 
 [node name="CockSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_youc3")

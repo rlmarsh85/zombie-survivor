@@ -43,7 +43,12 @@ func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	set_direction(delta)
 	
-	if Input.is_action_pressed("shoot"):
+	
+	
+	if Input.is_action_pressed("reload"):
+		current_weapon.reload()
+			
+	if Input.is_action_pressed("shoot") && !Input.is_action_pressed("reload"):
 		handle_shoot(true)	
 		
 	move_and_slide()
@@ -54,8 +59,6 @@ func _unhandled_input(event):
 		handle_shoot(false)
 	if event.is_action_pressed("switch_weapon"):
 		rotate_weapon()
-	if event.is_action_pressed("Reload"):
-		current_weapon.reload()
 
 func rotate_weapon():
 
@@ -104,6 +107,8 @@ func handle_shoot(is_automatic = false) -> void:
 func handle_animation():
 	if current_weapon.is_shooting:
 		animator.animation = current_weapon.get_shoot_animation()
+	elif current_weapon.is_reloading:
+		animator.animation = current_weapon.get_reload_animation()
 	else:
 		if is_walking:
 			animator.animation = current_weapon.get_walk_animation()

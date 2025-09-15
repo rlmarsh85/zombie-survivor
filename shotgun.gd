@@ -8,7 +8,8 @@ func _init() -> void:
 	weapon_name = "shotgun"	
 	cooldown_time = 1.0
 	max_shots = 6
-	reload_time = 4.0
+	reload_time = 1.0
+	reload_size = 1
 	is_automatic = false
 	super()
 
