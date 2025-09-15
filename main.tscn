@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0ae168v31gld"]
+[gd_scene load_steps=10 format=3 uid="uid://d0ae168v31gld"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cbxtapagjkb4n" path="res://main.gd" id="1_lquwl"]
@@ -17,6 +17,12 @@ vertices = PackedVector2Array(585.328, 671.023, 1274.29, 1320.97, -169.008, 1296
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(4, 6, 7, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-173.442, -282.809, 1316.58, -296.276, 1340.23, 1387.11, -236.511, 1360.18), PackedVector2Array(394.186, 390.546, 394.186, 606.019, 520.325, 606.019, 520.325, 390.546)])
 agent_radius = 65.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(1210, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
+size = Vector2(18, 741)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lquwl")
@@ -41,8 +47,28 @@ position = Vector2(-83, -82)
 rotation = 1.5708
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 scale = Vector2(1.01475, 0.59404)
 navigation_polygon = SubResource("NavigationPolygon_5vw27")
+
+[node name="MapBoundary" type="StaticBody2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(595, -1)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(595, 728)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(-16, 365.5)
+shape = SubResource("RectangleShape2D_7mycd")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(1208, 344)
+shape = SubResource("RectangleShape2D_7mycd")
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

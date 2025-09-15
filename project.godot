@@ -63,3 +63,4 @@ reload={
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="player_projectiles"
 2d_physics/layer_4="world_objects"
+2d_physics/layer_5="player_barriers"
