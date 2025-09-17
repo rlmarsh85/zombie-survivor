@@ -1,17 +1,19 @@
-extends Node2D
+extends Area2D
 
 
 @export var speed = 1000.0
 
+var velocity = Vector2.ZERO
+
+func _ready():
+	
+	velocity = Vector2.from_angle(rotation) * speed
+	
 func _process(delta):
-	var velocity = Vector2.ZERO
-	var direction = Vector2.RIGHT.rotated(rotation)
 	
-	position += direction * speed * delta
+	position += velocity * delta
 
 	
-	
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):

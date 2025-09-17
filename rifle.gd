@@ -15,10 +15,8 @@ func fire():
 	
 	muzzle_flash()
 	
-	var bullet = bullet_scene.instantiate()
-	add_child(bullet)
-	bullet.global_position = bullet_spawn_point.global_position
-	bullet.rotation = self.rotation		
+	var bullet = bullet_scene.instantiate()	
+	spwanBullet(bullet_spawn_point.global_rotation)	
 	
 	super()
 

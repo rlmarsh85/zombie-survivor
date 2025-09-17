@@ -20,16 +20,10 @@ func fire():
 	muzzle_flash()
 	
 	for i in range(6):
-		var bullet = bullet_scene.instantiate()
-		add_child(bullet)
-		bullet.global_position = bullet_spawn_point.global_position
-
-		var new_rotation = self.rotation + deg_to_rad(angle_offset)
-
-		bullet.rotation = new_rotation
+		
+		var new_rotation = bullet_spawn_point.global_rotation + deg_to_rad(angle_offset)
+		spwanBullet(new_rotation)
 		angle_offset += angle_step
-	
-	
 	
 	super()
 	await get_tree().create_timer(0.3).timeout

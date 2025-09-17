@@ -74,6 +74,12 @@ func fire():
 	sound_player.play()
 	sound_player.finished.connect(sound_player.queue_free)
 	
+func spwanBullet(rotation: float):
+	var bullet = bullet_scene.instantiate()	
+	bullet.global_position = bullet_spawn_point.global_position
+	bullet.global_rotation = rotation
+	get_tree().root.add_child(bullet)	
+	
 	
 func get_cooldown_time():
 	return cooldown_time
