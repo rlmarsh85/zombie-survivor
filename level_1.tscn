@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://tibeotsu3np"]
+
+[ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_3hls8"]
+[ext_resource type="Script" uid="uid://d08hintvh4ejs" path="res://level_1.gd" id="1_hn12h"]
+[ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://hud.tscn" id="2_hbghi"]
+[ext_resource type="PackedScene" uid="uid://vokqybover7a" path="res://zombie_small.tscn" id="2_ihfcg"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ihfcg"]
+vertices = PackedVector2Array(1910, 1070, 10, 1070, 10, 10, 1910, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1920, 0, 1920, 1080, 0, 1080, 0, 1024, 0, 0)])
+
+[sub_resource type="Curve2D" id="Curve2D_ihfcg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 79, 11, 0, 0, 0, 0, 1789, 97, 0, 0, 0, 0, 1732, 948, 0, 0, 0, 0, 158, 1033, 0, 0, 0, 0, 96, 911, 0, 0, 0, 0, 37, 134, 0, 0, 0, 0, 101, 131, 0, 0, 0, 0, 80, 14)
+}
+point_count = 8
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_hn12h")
+zombie_spawaner = ExtResource("2_ihfcg")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_3hls8")]
+position = Vector2(1001, 524)
+scale = Vector2(0.25, 0.25)
+speed = 200
+
+[node name="HUD" parent="." instance=ExtResource("2_hbghi")]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_ihfcg")
+
+[node name="SpawnBoundary" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ihfcg")
+
+[node name="SpawnPath" type="PathFollow2D" parent="SpawnBoundary"]
+position = Vector2(79, 11)
+rotation = 0.0502501
+
+[connection signal="go_button_pressed" from="HUD" to="." method="_on_hud_go_button_pressed"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

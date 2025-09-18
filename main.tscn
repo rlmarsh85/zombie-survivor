@@ -47,7 +47,6 @@ position = Vector2(-83, -82)
 rotation = 1.5708
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
 scale = Vector2(1.01475, 0.59404)
 navigation_polygon = SubResource("NavigationPolygon_5vw27")
 

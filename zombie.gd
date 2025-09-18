@@ -10,7 +10,7 @@ extends CharacterBody2D
 const DeathEffect = preload("res://zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
 
-var base_speed = 150
+@export var base_speed = 300
 var player : Node2D
 
 
