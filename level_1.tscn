@@ -23,7 +23,6 @@ zombie_spawaner = ExtResource("2_ihfcg")
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_3hls8")]
 position = Vector2(1001, 524)
 scale = Vector2(0.25, 0.25)
-speed = 200
 
 [node name="HUD" parent="." instance=ExtResource("2_hbghi")]
 

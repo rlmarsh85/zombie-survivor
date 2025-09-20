@@ -828,5 +828,14 @@ parameters/looping = true
 stream = ExtResource("89_5ihbc")
 volume_db = 10.895
 
+[node name="RestTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="RunTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]
+[connection signal="timeout" from="RunTimer" to="." method="_on_run_timer_timeout"]
