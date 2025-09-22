@@ -6,11 +6,15 @@ extends CharacterBody2D
 
 @onready var attack_sound: Node2D = $AttackSound
 
+const WANDER_SPEED = 75
+const RUN_SPEED = 250
+
 
 const DeathEffect = preload("res://zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
 
 @export var base_speed = 250
+
 var player : Node2D
 
 
@@ -20,6 +24,7 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	
 	play_zombie_sounds()
+	set_speed(WANDER_SPEED)
 
 
 func _physics_process(delta: float) -> void:
@@ -27,6 +32,9 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	move_zombie()
+
+func set_speed(new_speed : int):
+	base_speed = new_speed
 
 func move_zombie() -> void:
 	if not player || player.is_dead:
@@ -82,3 +90,7 @@ func _on_attack_radius_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		animator.animation = "walk"
 		animator.play()
+
+
+func _on_alert_timer_timeout() -> void:
+	set_speed(RUN_SPEED)
