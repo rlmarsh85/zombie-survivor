@@ -2,6 +2,9 @@ extends Node2D
 
 class_name Weapon
 
+
+signal finished_reloading
+
 var weapon_name : String
 var is_shooting = false
 var is_reloading = false
@@ -79,7 +82,12 @@ func spwanBullet(rotation: float):
 	bullet.global_position = bullet_spawn_point.global_position
 	bullet.global_rotation = rotation
 	get_tree().root.add_child(bullet)	
+
+func get_current_ammo():
+	return current_shots
 	
+func get_max_ammo():
+	return max_shots
 	
 func get_cooldown_time():
 	return cooldown_time
@@ -100,5 +108,6 @@ func get_shoot_animation():
 	return "shoot_" + weapon_name
 
 func _on_reload_timer_timeout() -> void:
-	is_reloading = false
 	current_shots = min(current_shots + reload_size, max_shots)
+	is_reloading = false
+	finished_reloading.emit()

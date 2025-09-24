@@ -6,11 +6,13 @@ extends Node
 @onready var player = $Player
 @onready var spawnTimer = $SpawnTimer
 @onready var hud = $HUD
+@onready var gameplay_hud = $GameplayHUD
 
 func _ready() -> void:
 	player.hide()
 	spawnTimer.stop()
 	hud.display_start_button()
+	gameplay_hud.visible = false
 
 func _on_spawn_timer_timeout() -> void:
 	var zombie = zombie_spawaner.instantiate()
@@ -31,10 +33,10 @@ func _on_player_player_died() -> void:
 	hud.restart_display()
 
 
-func _on_hud_go_button_pressed() -> void:
-	
+func _on_hud_go_button_pressed() -> void:	
 	get_tree().call_group("enemies", "queue_free")
 	player.resurrect()
 	hud.hide_display()
+	gameplay_hud.visible = true
 	player.show()
 	spawnTimer.start()

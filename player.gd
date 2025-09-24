@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 signal player_died
+signal weapon_changed
+signal fired_weapon
+signal weapon_reloaded
 
 enum State { IDLE, WALKING }
 const PISTOL_SCENE = preload("res://pistol.tscn")
@@ -45,7 +48,10 @@ func initialize_weapons():
 	current_weapon = weapons[0]
 	for weapon in weapons:
 		weapon_container.add_child(weapon)
-			
+		weapon.finished_reloading.connect(weapon_finished_reloading)
+	
+	weapon_changed.emit()
+	
 func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	set_direction(delta)
@@ -90,7 +96,8 @@ func rotate_weapon():
 			current_weapon = weapons[i + 1]
 			break
 
-		
+	weapon_changed.emit()
+	
 func set_direction(delta):
 	if is_dead:
 		velocity = Vector2.ZERO
@@ -118,6 +125,7 @@ func handle_shoot(is_automatic = false) -> void:
 		return
 		
 	current_weapon.fire()
+	fired_weapon.emit()
 	
 
 func handle_animation():
@@ -146,11 +154,17 @@ func resurrect() -> void:
 	initialize_weapons()
 	$CollisionShape2D.set_deferred("disabled", false)
 	
+func get_current_ammo():
+	return current_weapon.get_current_ammo()
 	
+func get_max_ammo():
+	return current_weapon.get_max_ammo()
+		
 func _on_animated_sprite_2d_animation_finished() -> void:
 	
 	if animator.animation == current_weapon.get_shoot_animation():
 		current_weapon.is_shooting = false
+		return
 
 
 func _on_rest_timer_timeout() -> void:
@@ -163,3 +177,6 @@ func _on_run_timer_timeout() -> void:
 		current_stamina = current_stamina - 1
 	else:
 		setSpeed(WALK_SPEED)
+		
+func weapon_finished_reloading():
+	weapon_reloaded.emit()		

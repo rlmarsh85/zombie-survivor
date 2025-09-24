@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://tibeotsu3np"]
+[gd_scene load_steps=13 format=4 uid="uid://tibeotsu3np"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_3hls8"]
 [ext_resource type="Script" uid="uid://d08hintvh4ejs" path="res://level_1.gd" id="1_hn12h"]
 [ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://hud.tscn" id="2_hbghi"]
 [ext_resource type="PackedScene" uid="uid://vokqybover7a" path="res://zombie_small.tscn" id="2_ihfcg"]
 [ext_resource type="Texture2D" uid="uid://cfa68h3o6ixko" path="res://assets/tiles/tilesheet_complete.png" id="5_rka8t"]
+[ext_resource type="PackedScene" uid="uid://ds6gbhjrwuel2" path="res://gameplay_hud.tscn" id="6_5hph3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rka8t"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -7534,5 +7535,11 @@ rotation = 0.0037433
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 
+[node name="GameplayHUD" parent="." instance=ExtResource("6_5hph3")]
+top_level = true
+
+[connection signal="fired_weapon" from="Player" to="GameplayHUD" method="update_ammo_count"]
+[connection signal="weapon_changed" from="Player" to="GameplayHUD" method="update_ammo_count"]
+[connection signal="weapon_reloaded" from="Player" to="GameplayHUD" method="update_ammo_count"]
 [connection signal="go_button_pressed" from="HUD" to="." method="_on_hud_go_button_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
