@@ -1,4 +1,4 @@
-[gd_scene load_steps=190 format=3 uid="uid://bvitx3lov2d7c"]
+[gd_scene load_steps=192 format=3 uid="uid://bvitx3lov2d7c"]
 
 [ext_resource type="Script" uid="uid://dav4nn5o5cgjh" path="res://player.gd" id="1_c0yt3"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png" id="1_pbfsw"]
@@ -806,6 +806,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbfsw"]
 radius = 94.0
 
+[sub_resource type="Gradient" id="Gradient_vl6wn"]
+offsets = PackedFloat32Array(0.0324675, 0.707792)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1ww5g"]
+gradient = SubResource("Gradient_vl6wn")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.472477)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 26
 script = ExtResource("1_c0yt3")
@@ -834,6 +845,10 @@ autostart = true
 
 [node name="RunTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_1ww5g")
+texture_scale = 25.0
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

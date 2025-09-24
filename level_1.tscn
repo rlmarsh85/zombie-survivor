@@ -7531,5 +7531,8 @@ curve = SubResource("Curve2D_ihfcg")
 position = Vector2(75, -10)
 rotation = 0.0037433
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+
 [connection signal="go_button_pressed" from="HUD" to="." method="_on_hud_go_button_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
