@@ -13,6 +13,9 @@ const RIFLE_SCENE = preload("res://rifle.tscn")
 
 const WALK_SPEED = 200
 const RUN_SPEED = 500
+const KNIFE_ATTACK_ANIMATION_NAME = "attack_knife"
+const MINIMUM_KNIFE_STAMINA = 0.5
+const MAXIMUM_KNIFE_VICTIMS = 2
 
 @onready var walk_sound: AudioStreamPlayer2D = $Footstep
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
@@ -28,6 +31,11 @@ const RUN_SPEED = 500
 @export var is_dead = true
 var current_state = State.IDLE
 var is_walking = false
+
+var is_knife_attacking = false
+
+var current_knife_victims = 0
+
 var current_stamina
 
 var weapons
@@ -77,6 +85,9 @@ func _unhandled_input(event):
 		setSpeed(RUN_SPEED)
 	if event.is_action_released("run"):
 		setSpeed(WALK_SPEED)
+		
+	if event.is_action_pressed("knife_attack"):
+		knife_attack()
 
 
 func setSpeed(new_speed):
@@ -93,6 +104,21 @@ func get_current_stamina():
 	
 func get_max_stamina():
 	return max_stamina	
+	
+func set_is_knife_attack(new_knife_attacking):	
+	is_knife_attacking = new_knife_attacking
+	if(is_knife_attacking):
+		current_knife_victims = 0
+		
+
+func knife_attack():
+	
+	if(
+		!current_weapon.is_reloading && 
+		!is_knife_attacking && 
+		current_stamina > MINIMUM_KNIFE_STAMINA
+	):
+		set_is_knife_attack(true)
 	
 func rotate_weapon():
 
@@ -133,7 +159,7 @@ func set_direction(delta):
 
 func handle_shoot(is_automatic_fire = false) -> void:
 	
-	if(is_dead):
+	if(is_dead || is_knife_attacking):
 		return
 		
 	current_weapon.fire(is_automatic_fire)
@@ -145,6 +171,8 @@ func handle_animation():
 		animator.animation = current_weapon.get_shoot_animation()
 	elif current_weapon.is_reloading:
 		animator.animation = current_weapon.get_reload_animation()
+	elif is_knife_attacking:
+		animator.animation = KNIFE_ATTACK_ANIMATION_NAME
 	else:
 		if is_walking:
 			animator.animation = current_weapon.get_walk_animation()
@@ -177,6 +205,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if animator.animation == current_weapon.get_shoot_animation():
 		current_weapon.is_shooting = false
 		return
+		
+	if animator.animation == KNIFE_ATTACK_ANIMATION_NAME:		
+		set_is_knife_attack(false)
+		return		
 
 
 func _on_rest_timer_timeout() -> void:
@@ -190,5 +222,19 @@ func _on_run_timer_timeout() -> void:
 	else:
 		setSpeed(WALK_SPEED)
 		
+	if is_knife_attacking:
+		set_new_stamina(current_stamina - stamina_step_size * 2)
+		
 func weapon_finished_reloading():
 	weapon_reloaded.emit()		
+
+
+func _on_knife_attack_range_body_entered(body: Node2D) -> void:
+	if (
+		is_knife_attacking && 
+		body.has_method("take_damage") &&
+		current_knife_victims < MAXIMUM_KNIFE_VICTIMS
+	):
+		current_knife_victims += 1
+		body.take_damage()
+	
