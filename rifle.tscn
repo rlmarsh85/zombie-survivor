@@ -120,6 +120,7 @@ one_shot = true
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_f8nb7")
+volume_db = 12.0
 
 [node name="EmptySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_c58fl")
