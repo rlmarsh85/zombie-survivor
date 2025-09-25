@@ -7539,6 +7539,7 @@ color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 top_level = true
 
 [connection signal="fired_weapon" from="Player" to="GameplayHUD" method="update_ammo_count"]
+[connection signal="stamina_changed" from="Player" to="GameplayHUD" method="update_stamina_bar"]
 [connection signal="weapon_changed" from="Player" to="GameplayHUD" method="update_ammo_count"]
 [connection signal="weapon_reloaded" from="Player" to="GameplayHUD" method="update_ammo_count"]
 [connection signal="go_button_pressed" from="HUD" to="." method="_on_hud_go_button_pressed"]

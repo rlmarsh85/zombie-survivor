@@ -4,6 +4,7 @@ signal player_died
 signal weapon_changed
 signal fired_weapon
 signal weapon_reloaded
+signal stamina_changed
 
 enum State { IDLE, WALKING }
 const PISTOL_SCENE = preload("res://pistol.tscn")
@@ -19,6 +20,7 @@ const RUN_SPEED = 500
 
 @export var speed = 200
 @export var max_stamina = 6
+@export var stamina_step_size = 0.1
 
 @onready var weapon_container = $WeaponContainer
 @onready var animator = $AnimatedSprite2D
@@ -35,8 +37,8 @@ var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	initialize_weapons()
-	current_stamina = max_stamina
+	initialize_weapons()	
+	set_new_stamina(max_stamina)
 
 
 func initialize_weapons():
@@ -81,6 +83,16 @@ func _unhandled_input(event):
 func setSpeed(new_speed):
 	if(current_stamina > 0 || new_speed == WALK_SPEED):
 		speed = new_speed
+		
+func set_new_stamina(new_stamina_value):
+	current_stamina = new_stamina_value
+	stamina_changed.emit()		
+
+func get_current_stamina():
+	return current_stamina
+	
+func get_max_stamina():
+	return max_stamina	
 	
 func rotate_weapon():
 
@@ -150,7 +162,7 @@ func gets_eaten() -> void:
 	
 func resurrect() -> void:
 	is_dead = false
-	current_stamina = max_stamina
+	set_new_stamina(max_stamina)
 	initialize_weapons()
 	$CollisionShape2D.set_deferred("disabled", false)
 	
@@ -169,12 +181,12 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_rest_timer_timeout() -> void:
 	if !Input.is_action_pressed("run") and current_stamina < max_stamina:
-		current_stamina = current_stamina + 1
+		set_new_stamina(current_stamina + stamina_step_size)
 
 
 func _on_run_timer_timeout() -> void:
-	if Input.is_action_pressed("run") and !current_stamina < 1:
-		current_stamina = current_stamina - 1
+	if Input.is_action_pressed("run") and !current_stamina < stamina_step_size:
+		set_new_stamina(current_stamina - stamina_step_size)
 	else:
 		setSpeed(WALK_SPEED)
 		
