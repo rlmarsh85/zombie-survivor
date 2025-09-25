@@ -11,8 +11,10 @@ func _init() -> void:
 	is_automatic = false
 	super()
 	
-func fire():
-	
+func fire(is_automatic_fire = false):
+	if(!check_is_ready(is_automatic_fire)):
+		return 
+		
 	muzzle_flash()
 	spwanBullet(bullet_spawn_point.global_rotation)
 	

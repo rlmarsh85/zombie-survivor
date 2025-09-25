@@ -37,9 +37,8 @@ var screen_size
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	initialize_weapons()	
-	set_new_stamina(max_stamina)
-
+	initialize_weapons()		
+	set_new_stamina(max_stamina, false)
 
 func initialize_weapons():
 	weapons = [
@@ -84,9 +83,10 @@ func setSpeed(new_speed):
 	if(current_stamina > 0 || new_speed == WALK_SPEED):
 		speed = new_speed
 		
-func set_new_stamina(new_stamina_value):
+func set_new_stamina(new_stamina_value, emit_signal = true):
 	current_stamina = new_stamina_value
-	stamina_changed.emit()		
+	if(emit_signal):
+		stamina_changed.emit()		
 
 func get_current_stamina():
 	return current_stamina
@@ -131,12 +131,12 @@ func set_direction(delta):
 		
 	handle_animation()
 
-func handle_shoot(is_automatic = false) -> void:
+func handle_shoot(is_automatic_fire = false) -> void:
 	
-	if(!current_weapon.is_ready(is_automatic) || is_dead):
+	if(is_dead):
 		return
 		
-	current_weapon.fire()
+	current_weapon.fire(is_automatic_fire)
 	fired_weapon.emit()
 	
 

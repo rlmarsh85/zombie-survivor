@@ -14,7 +14,10 @@ func _init() -> void:
 	super()
 
 	
-func fire():
+func fire(is_automatic_fire = false):
+	if(!check_is_ready(is_automatic_fire)):
+		return 
+	
 	var angle_offset = -10  # Starting angle for the first bullet, to center the spread
 	var angle_step = 6      # Angle between each bullet
 	muzzle_flash()

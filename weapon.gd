@@ -25,6 +25,7 @@ var reload_size: int
 @onready var cooldown_timer = $CooldownTimer
 @onready var reload_timer = $ReloadTimer
 @onready var reload_sound = $ReloadSound
+@onready var empty_sound = $EmptySound
 
 
 func _init() -> void:
@@ -48,9 +49,17 @@ func reload():
 		is_reloading = true
 		reload_timer.start()
 		reload_sound.play()
+		
+func check_is_ready(is_automatic_fire = false):		
+	if(is_ready(is_automatic_fire)):
+		return true
+	
+	
+	return false
+	
 
 func is_ready(is_automatic_fire = false):
-	
+
 	if(is_automatic_fire && !is_automatic):
 		return false
 	
@@ -58,6 +67,7 @@ func is_ready(is_automatic_fire = false):
 		return false
 	
 	if(current_shots <= 0):
+		empty_sound.play()
 		return false
 	
 	if(is_reloading):
@@ -65,7 +75,7 @@ func is_ready(is_automatic_fire = false):
 	
 	return true
 	
-func fire():
+func fire(is_automatic_fire = false):
 	
 	is_shooting = true
 	cooldown_timer.start()
