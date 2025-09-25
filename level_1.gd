@@ -5,8 +5,8 @@ extends Node
 @onready var spawn_path = $SpawnBoundary/SpawnPath
 @onready var player = $Player
 @onready var spawnTimer = $SpawnTimer
-@onready var hud = $HUD
-@onready var gameplay_hud = $GameplayHUD
+@onready var hud = $HUD/MenuHUD
+@onready var gameplay_hud = $HUD/GameplayHUD
 
 func _ready() -> void:
 	player.hide()
