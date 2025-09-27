@@ -22,8 +22,8 @@ func restart_display() -> void:
 	display_message("Game Over")
 	display_restart_button()
 
-func display_message (str: String) -> void:
-	message.text = str
+func display_message (string: String) -> void:
+	message.text = string
 	message.show()
 	
 func hide_display() -> void:

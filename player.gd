@@ -61,9 +61,9 @@ func initialize_weapons():
 	
 	weapon_changed.emit()
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	look_at(get_global_mouse_position())
-	set_direction(delta)
+	set_direction()
 	
 			
 	if Input.is_action_pressed("reload"):
@@ -94,9 +94,9 @@ func setSpeed(new_speed):
 	if(current_stamina > 0 || new_speed == WALK_SPEED):
 		speed = new_speed
 		
-func set_new_stamina(new_stamina_value, emit_signal = true):
+func set_new_stamina(new_stamina_value, should_signal = true):
 	current_stamina = new_stamina_value
-	if(emit_signal):
+	if(should_signal):
 		stamina_changed.emit()		
 
 func get_current_stamina():
@@ -136,7 +136,7 @@ func rotate_weapon():
 
 	weapon_changed.emit()
 	
-func set_direction(delta):
+func set_direction():
 	if is_dead:
 		velocity = Vector2.ZERO
 		return

@@ -27,7 +27,7 @@ func _ready() -> void:
 	set_speed(WANDER_SPEED)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not player:
 		return
 	

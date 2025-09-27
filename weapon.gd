@@ -36,10 +36,10 @@ func _ready() -> void:
 	reload_timer.wait_time = reload_time
 	
 func muzzle_flash():
-	var muzzle_flash = muzzle_scene.instantiate()
-	add_child(muzzle_flash)
-	muzzle_flash.global_position = muzzle_flash_point.global_position
-	muzzle_flash.rotation = self.rotation
+	var flash = muzzle_scene.instantiate()
+	add_child(flash)
+	flash.global_position = muzzle_flash_point.global_position
+	flash.rotation = self.rotation
 	
 func is_full():
 	return current_shots == max_shots
@@ -75,7 +75,7 @@ func is_ready(is_automatic_fire = false):
 	
 	return true
 	
-func fire(is_automatic_fire = false):
+func fire(_is_automatic_fire = false):
 	
 	is_shooting = true
 	cooldown_timer.start()
@@ -87,10 +87,10 @@ func fire(is_automatic_fire = false):
 	sound_player.play()
 	sound_player.finished.connect(sound_player.queue_free)
 	
-func spwanBullet(rotation: float):
+func spwanBullet(bullets_rotation: float):
 	var bullet = bullet_scene.instantiate()	
 	bullet.global_position = bullet_spawn_point.global_position
-	bullet.global_rotation = rotation
+	bullet.global_rotation = bullets_rotation
 	get_tree().root.add_child(bullet)	
 
 func get_current_ammo():

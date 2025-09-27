@@ -17,8 +17,6 @@ func fire(is_automatic_fire = false):
 		return 
 		
 	muzzle_flash()
-	
-	var bullet = bullet_scene.instantiate()	
 	spwanBullet(bullet_spawn_point.global_rotation)	
 	
 	super()
