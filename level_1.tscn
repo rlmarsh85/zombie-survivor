@@ -7534,10 +7534,10 @@ color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 collision_layer = 0
 collision_mask = 0
 zombie_scene = ExtResource("2_ihfcg")
-timer_duration = 10.0
+timer_duration = 5.0
 shape_node_path = NodePath("CollisionShape2D")
 min_enemies = 5
-max_enemies = 20
+max_enemies = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieSpawnZone"]
 position = Vector2(-17, 528.5)

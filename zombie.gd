@@ -7,19 +7,20 @@ extends CharacterBody2D
 @onready var attack_sound: Node2D = $AttackSound
 
 const WANDER_SPEED = 75
-const RUN_SPEED = 250
+const BASE_RUN_SPEED = 250
 
 
 const DeathEffect = preload("res://zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
 
-@export var base_speed = 250
+@export var base_speed : int
 
 var player : Node2D
 
-const PATHFINDING_SKIP_FRAMES = 5
+const PATHFINDING_SKIP_FRAMES = 10
 var frame_counter = 0
 var current_direction: Vector2
+var current_target_point: Vector2 
 
 func _ready() -> void:
 	animator.animation = "walk"
@@ -38,23 +39,30 @@ func _physics_process(_delta: float) -> void:
 
 func set_speed(new_speed : int):
 	base_speed = new_speed
-
-func move_zombie() -> void:
-	if not player || player.is_dead:
-		return
 	
+func move_zombie() -> void:
+	if not player or player.is_dead:
+		return
+
+
 	frame_counter += 1
-	var direction: Vector2
 	if frame_counter >= PATHFINDING_SKIP_FRAMES:
 		navigation_agent.target_position = player.global_position
-		
-		current_direction = navigation_agent.get_next_path_position()
 		frame_counter = 0
-		
-	rotation = global_position.direction_to(current_direction).angle()
-	velocity = global_position.direction_to(current_direction) * base_speed
-	
-	move_and_slide()		
+
+
+	current_target_point = navigation_agent.get_next_path_position()
+
+
+	var direction_to_point = global_position.direction_to(current_target_point)
+
+	if global_position.distance_to(current_target_point) > navigation_agent.radius:
+		velocity = direction_to_point * base_speed
+	else:
+		velocity = Vector2.ZERO
+
+	rotation = direction_to_point.angle()
+	move_and_slide()			
 	
 func take_damage() -> void:
 	var death_effect = DeathEffect.instantiate()
@@ -100,4 +108,5 @@ func _on_attack_radius_body_exited(body: Node2D) -> void:
 
 
 func _on_alert_timer_timeout() -> void:
-	set_speed(RUN_SPEED)
+	var speed_factor = randf_range(0.3, 1.1)
+	set_speed(BASE_RUN_SPEED * speed_factor)
