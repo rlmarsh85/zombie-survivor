@@ -17,6 +17,9 @@ const ATTACK_FRAME_INDEX = 6
 
 var player : Node2D
 
+const PATHFINDING_SKIP_FRAMES = 5
+var frame_counter = 0
+var current_direction: Vector2
 
 func _ready() -> void:
 	animator.animation = "walk"
@@ -40,13 +43,17 @@ func move_zombie() -> void:
 	if not player || player.is_dead:
 		return
 	
-	navigation_agent.target_position = player.global_position
-	var current_agent_position = global_position
+	frame_counter += 1
+	var direction: Vector2
+	if frame_counter >= PATHFINDING_SKIP_FRAMES:
+		navigation_agent.target_position = player.global_position
+		
+		current_direction = navigation_agent.get_next_path_position()
+		frame_counter = 0
+		
+	rotation = global_position.direction_to(current_direction).angle()
+	velocity = global_position.direction_to(current_direction) * base_speed
 	
-	var direction: Vector2 = navigation_agent.get_next_path_position()
-	
-	rotation = global_position.direction_to(direction).angle()
-	velocity = current_agent_position.direction_to(direction) * base_speed
 	move_and_slide()		
 	
 func take_damage() -> void:

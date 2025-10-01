@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://djhhjs38wiuhq"]
+
+[ext_resource type="Script" uid="uid://blwc0y4ire0es" path="res://zombie_spawn_zone.gd" id="1_cxa6g"]
+
+[node name="ZombieSpawnZone" type="Area2D"]
+script = ExtResource("1_cxa6g")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="InternalTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="spawn_wave"]
