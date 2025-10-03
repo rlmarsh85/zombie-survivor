@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=7 format=3 uid="uid://ddpi6pova8joh"]
+
+[ext_resource type="Script" uid="uid://b1u46468t7iej" path="res://weapon_stats.gd" id="1_c0rnk"]
+[ext_resource type="AudioStream" uid="uid://brdruxs4xuq7c" path="res://assets/sounds/weapons/empty.mp3" id="1_cme0y"]
+[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="1_p2jh4"]
+[ext_resource type="AudioStream" uid="uid://41yj3sx3wiyh" path="res://assets/sounds/weapons/rifle-reload.mp3" id="2_b0yaa"]
+[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="3_dggia"]
+[ext_resource type="AudioStream" uid="uid://bbcqk574xhvmd" path="res://assets/sounds/weapons/rifle-shot-2.mp3" id="6_ys2y7"]
+
+[resource]
+script = ExtResource("1_c0rnk")
+weapon_name = "rifle"
+cooldown_time = 0.2
+max_shots = 30
+reload_time = 3.0
+is_automatic = true
+reload_sound = ExtResource("2_b0yaa")
+empty_sound = ExtResource("1_cme0y")
+muzzle_flash_position = Vector2(151, 48)
+bullet_spawn_position = Vector2(142, 50)
+bullet_scene = ExtResource("1_p2jh4")
+muzzle_scene = ExtResource("3_dggia")
+shoot_sound = ExtResource("6_ys2y7")
+metadata/_custom_type_script = "uid://b1u46468t7iej"

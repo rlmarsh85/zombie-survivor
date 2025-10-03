@@ -1,10 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://xtbd0pm4yt0m"]
+[gd_scene load_steps=26 format=3 uid="uid://xtbd0pm4yt0m"]
 
 [ext_resource type="Script" uid="uid://boyh22i860hn6" path="res://pistol.gd" id="1_1e1q2"]
+[ext_resource type="Resource" uid="uid://dqfl5mrh4fy1b" path="res://resources/weapons/pistol.tres" id="2_35m0f"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png" id="2_bhi57"]
-[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="2_laq0g"]
 [ext_resource type="Texture2D" uid="uid://cutcn2v8go1v1" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_1.png" id="3_8fh6q"]
-[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="3_286is"]
 [ext_resource type="Texture2D" uid="uid://ydxr4ru8cab6" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_2.png" id="4_laq0g"]
 [ext_resource type="Texture2D" uid="uid://ed425drqnf8h" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_3.png" id="5_286is"]
 [ext_resource type="Texture2D" uid="uid://cmaqbubsdo7nd" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_4.png" id="6_y6eha"]
@@ -23,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://4hag6k1ahsb4" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_17.png" id="19_rp5p1"]
 [ext_resource type="Texture2D" uid="uid://btvwlhyc4pkuq" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_18.png" id="20_esjqu"]
 [ext_resource type="Texture2D" uid="uid://b6uy6v6mjjdwd" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_19.png" id="21_ywdqx"]
-[ext_resource type="AudioStream" uid="uid://c262hnaedyyfy" path="res://assets/sounds/weapons/pistol-shot.mp3" id="24_286is"]
 [ext_resource type="AudioStream" uid="uid://chqjphffol8w4" path="res://assets/sounds/weapons/pistol_reload.mp3" id="25_y6eha"]
 [ext_resource type="AudioStream" uid="uid://brdruxs4xuq7c" path="res://assets/sounds/weapons/empty.mp3" id="26_mf61i"]
 
@@ -97,9 +95,7 @@ animations = [{
 
 [node name="Pistol" type="Node2D"]
 script = ExtResource("1_1e1q2")
-bullet_scene = ExtResource("2_laq0g")
-muzzle_scene = ExtResource("3_286is")
-shoot_sound = ExtResource("24_286is")
+stats = ExtResource("2_35m0f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false

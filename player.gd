@@ -7,9 +7,15 @@ signal weapon_reloaded
 signal stamina_changed
 
 enum State { IDLE, WALKING }
-const PISTOL_SCENE = preload("res://pistol.tscn")
-const SHOTGUN_SCENE = preload("res://shotgun.tscn")
-const RIFLE_SCENE = preload("res://rifle.tscn")
+const WEAPON_SCENE = preload("res://weapon.tscn")
+#const SHOTGUN_SCENE = preload("res://shotgun.tscn")
+#const RIFLE_SCENE = preload("res://rifle.tscn")
+const WEAPONS = [
+		"res://resources/weapons/pistol.tres",
+		"res://resources/weapons/rifle.tres"
+		#SHOTGUN_SCENE.instantiate(), 
+		#RIFLE_SCENE.instantiate()
+	]
 
 const WALK_SPEED = 200
 const RUN_SPEED = 500
@@ -19,13 +25,13 @@ const MAXIMUM_KNIFE_VICTIMS = 2
 
 @onready var walk_sound: AudioStreamPlayer2D = $Footstep
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
+@onready var weapon_container : Node2D = $WeaponContainer
 
 
 @export var speed = 200
 @export var max_stamina = 6
 @export var stamina_step_size = 0.1
 
-@onready var weapon_container = $WeaponContainer
 @onready var animator = $AnimatedSprite2D
 
 @export var is_dead = true
@@ -38,7 +44,7 @@ var current_knife_victims = 0
 
 var current_stamina
 
-var weapons
+var weapon_inventory: Array[Weapon] = []
 var current_weapon : Weapon
 
 var screen_size
@@ -49,16 +55,18 @@ func _ready() -> void:
 	set_new_stamina(max_stamina, false)
 
 func initialize_weapons():
-	weapons = [
-		PISTOL_SCENE.instantiate(), 
-		SHOTGUN_SCENE.instantiate(), 
-		RIFLE_SCENE.instantiate()
-	]
-	current_weapon = weapons[0]
-	for weapon in weapons:
-		weapon_container.add_child(weapon)
-		weapon.finished_reloading.connect(weapon_finished_reloading)
+	current_weapon = null
+	weapon_inventory.clear()
 	
+	for weapon in WEAPONS:
+		var weapon_scene = WEAPON_SCENE.instantiate()
+		weapon_scene.stats = load(weapon) 
+				
+		weapon_container.add_child(weapon_scene)
+		weapon_inventory.append(weapon_scene)
+		weapon_scene.finished_reloading.connect(weapon_finished_reloading)
+	
+	current_weapon = weapon_inventory[0]
 	weapon_changed.emit()
 	
 func _physics_process(_delta):
@@ -125,13 +133,13 @@ func rotate_weapon():
 	if(current_weapon.is_shooting || is_dead || current_weapon.is_reloading):
 		return
 	
-	for i in weapons.size():
-		if(i == weapons.size() - 1):
-			current_weapon = weapons[0]
+	for i in weapon_inventory.size():
+		if(i == weapon_inventory.size() - 1):
+			current_weapon = weapon_inventory[0]
 			break			
 			
-		if(weapons[i].get_weapon_name() == current_weapon.get_weapon_name()):
-			current_weapon = weapons[i + 1]
+		if(weapon_inventory[i].get_weapon_name() == current_weapon.get_weapon_name()):
+			current_weapon = weapon_inventory[i + 1]
 			break
 
 	weapon_changed.emit()

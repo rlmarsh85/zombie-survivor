@@ -2,47 +2,63 @@ extends Node2D
 
 class_name Weapon
 
+@export var stats : WeaponStats:
+	set(new_stats):
+		stats = new_stats
+		if stats == null:
+			return
+			
+		if not is_node_ready():
+			await ready
+			
 
+		
 signal finished_reloading
 
-var weapon_name : String
+#var weapon_name : String
 var is_shooting = false
 var is_reloading = false
-var cooldown_time : float
+#var cooldown_time : float
 
-var max_shots : int
+#var max_shots : int
 var current_shots : int
-var reload_time : float
-var is_automatic : bool
 var reload_size: int
+#var reload_time : float
+#var is_automatic : bool
 
-@export var bullet_scene: PackedScene
-@export var muzzle_scene: PackedScene
-@export var shoot_sound: AudioStream
 
-@onready var bullet_spawn_point = $BulletSpawnPoint
-@onready var muzzle_flash_point = $MuzzleFlashPoint
+
+
+#@onready var bullet_spawn_point = $BulletSpawnPoint
+#@onready var muzzle_flash_point = $MuzzleFlashPoint
 @onready var cooldown_timer = $CooldownTimer
 @onready var reload_timer = $ReloadTimer
 @onready var reload_sound = $ReloadSound
 @onready var empty_sound = $EmptySound
+@onready var bullet_spawn_location = $BulletSpawnPoint
+@onready var muzzle_flash_location = $MuzzleFlashPoint
 
 
 func _init() -> void:
-	current_shots = max_shots
+	pass
 
 func _ready() -> void:
-	cooldown_timer.wait_time = cooldown_time
-	reload_timer.wait_time = reload_time
-	
+	cooldown_timer.wait_time = stats.cooldown_time	
+	reload_timer.wait_time = stats.reload_time
+	reload_sound.stream = stats.reload_sound
+	empty_sound.stream = stats.empty_sound
+	current_shots = stats.max_shots
+	bullet_spawn_location.position = stats.bullet_spawn_position
+	muzzle_flash_location.position = stats.muzzle_flash_position
+		
 func muzzle_flash():
-	var flash = muzzle_scene.instantiate()
+	var flash = stats.muzzle_scene.instantiate()
 	add_child(flash)
-	flash.global_position = muzzle_flash_point.global_position
+	flash.global_position = muzzle_flash_location.global_position
 	flash.rotation = self.rotation
 	
 func is_full():
-	return current_shots == max_shots
+	return current_shots == stats.max_shots
 
 func reload():
 	if !is_full() && not is_reloading:
@@ -50,17 +66,11 @@ func reload():
 		reload_timer.start()
 		reload_sound.play()
 		
-func check_is_ready(is_automatic_fire = false):		
-	if(is_ready(is_automatic_fire)):
-		return true
-	
-	
-	return false
 	
 
 func is_ready(is_automatic_fire = false):
 
-	if(is_automatic_fire && !is_automatic):
+	if(is_automatic_fire && !stats.is_automatic):
 		return false
 	
 	if(!cooldown_timer.is_stopped()):
@@ -76,48 +86,58 @@ func is_ready(is_automatic_fire = false):
 	return true
 	
 func fire(_is_automatic_fire = false):
-	
+	if(!is_ready(_is_automatic_fire)):
+		return 
+		
+	muzzle_flash()
+	spwanBullet()			
+
 	is_shooting = true
 	cooldown_timer.start()
 	current_shots = current_shots - 1
 	
 	var sound_player = AudioStreamPlayer.new()
-	sound_player.stream = shoot_sound
+	sound_player.stream = stats.shoot_sound
 	add_child(sound_player)
 	sound_player.play()
 	sound_player.finished.connect(sound_player.queue_free)
 	
-func spwanBullet(bullets_rotation: float):
-	var bullet = bullet_scene.instantiate()	
-	bullet.global_position = bullet_spawn_point.global_position
-	bullet.global_rotation = bullets_rotation
+func spwanBullet():
+	var bullet = stats.bullet_scene.instantiate()	
+	bullet.global_position = bullet_spawn_location.global_position
+	bullet.global_rotation = bullet_spawn_location.global_rotation
 	get_tree().root.add_child(bullet)	
 
 func get_current_ammo():
 	return current_shots
 	
 func get_max_ammo():
-	return max_shots
+	if stats && stats.max_shots:
+		return stats.max_shots
 	
 func get_cooldown_time():
-	return cooldown_time
+	return stats.cooldown_time
 	
 func get_weapon_name():
-	return weapon_name
+	return stats.weapon_name
 
 func get_walk_animation():
-	return "walk_" + weapon_name
+	if(stats && stats.weapon_name):
+		return "walk_" + stats.weapon_name
 	
 func get_idle_animation():
-	return "idle_" + weapon_name
+	if(stats && stats.weapon_name):
+		return "idle_" + stats.weapon_name
 	
 func get_reload_animation():
-	return "reload_" + weapon_name	
+	if(stats && stats.weapon_name):
+		return "reload_" + stats.weapon_name	
 	
 func get_shoot_animation():
-	return "shoot_" + weapon_name
+	if(stats && stats.weapon_name):
+		return "shoot_" + stats.weapon_name
 
 func _on_reload_timer_timeout() -> void:
-	current_shots = min(current_shots + reload_size, max_shots)
+	current_shots = min(current_shots + reload_size, stats.max_shots)
 	is_reloading = false
 	finished_reloading.emit()

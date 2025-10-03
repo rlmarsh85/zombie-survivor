@@ -898,8 +898,6 @@ animation = &"attack_knife"
 position = Vector2(-8, 15)
 shape = SubResource("CircleShape2D_pbfsw")
 
-[node name="WeaponContainer" type="Node2D" parent="."]
-
 [node name="Footstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("88_uckl6")
 parameters/looping = true
@@ -928,6 +926,8 @@ collision_mask = 10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KnifeAttackRange"]
 position = Vector2(1, 20)
 shape = SubResource("CapsuleShape2D_ib1vr")
+
+[node name="WeaponContainer" type="Node2D" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]

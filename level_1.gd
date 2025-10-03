@@ -2,7 +2,6 @@ extends Node
 
 
 @export var zombie_spawaner: PackedScene
-@onready var spawn_path = $SpawnBoundary/SpawnPath
 @onready var player = $Player
 @onready var hud = $HUD/MenuHUD
 @onready var gameplay_hud = $HUD/GameplayHUD

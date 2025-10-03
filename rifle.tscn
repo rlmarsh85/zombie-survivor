@@ -1,11 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://bs2fmnnvo1wbl"]
+[gd_scene load_steps=25 format=3 uid="uid://bs2fmnnvo1wbl"]
 
 [ext_resource type="Script" uid="uid://dnyi4ww3ntgch" path="res://rifle.gd" id="1_d5040"]
-[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://bullet.tscn" id="2_f8nb7"]
 [ext_resource type="Texture2D" uid="uid://cdylr3khlf3vo" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png" id="2_o26v7"]
 [ext_resource type="Texture2D" uid="uid://bkh77afdcwlid" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_1.png" id="3_d5040"]
-[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://muzzle_flash.tscn" id="3_tm75y"]
-[ext_resource type="AudioStream" uid="uid://bbcqk574xhvmd" path="res://assets/sounds/weapons/rifle-shot-2.mp3" id="4_c58fl"]
 [ext_resource type="Texture2D" uid="uid://cg2gsk2wsedi0" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_2.png" id="4_krc13"]
 [ext_resource type="Texture2D" uid="uid://cfcd564x64v7j" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_3.png" id="5_c58fl"]
 [ext_resource type="Texture2D" uid="uid://3vbv6w41oxdk" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_4.png" id="6_f8nb7"]
@@ -97,19 +94,17 @@ animations = [{
 
 [node name="Rifle" type="Node2D"]
 script = ExtResource("1_d5040")
-bullet_scene = ExtResource("2_f8nb7")
-muzzle_scene = ExtResource("3_tm75y")
-shoot_sound = ExtResource("4_c58fl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
 sprite_frames = SubResource("SpriteFrames_syw4h")
 animation = &"new_animation"
 
 [node name="MuzzleFlashPoint" type="Node2D" parent="."]
+visible = false
 position = Vector2(151, 48)
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]
+visible = false
 position = Vector2(142, 50)
 
 [node name="CooldownTimer" type="Timer" parent="."]
@@ -125,5 +120,3 @@ volume_db = 12.0
 [node name="EmptySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_c58fl")
 volume_db = 20.0
-
-[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
