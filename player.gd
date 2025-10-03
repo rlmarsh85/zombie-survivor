@@ -8,13 +8,10 @@ signal stamina_changed
 
 enum State { IDLE, WALKING }
 const WEAPON_SCENE = preload("res://weapon.tscn")
-#const SHOTGUN_SCENE = preload("res://shotgun.tscn")
-#const RIFLE_SCENE = preload("res://rifle.tscn")
+
 const WEAPONS = [
 		"res://resources/weapons/pistol.tres",
 		"res://resources/weapons/rifle.tres"
-		#SHOTGUN_SCENE.instantiate(), 
-		#RIFLE_SCENE.instantiate()
 	]
 
 const WALK_SPEED = 200

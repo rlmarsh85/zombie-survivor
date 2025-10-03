@@ -1,6 +1,5 @@
-[gd_scene load_steps=26 format=3 uid="uid://xtbd0pm4yt0m"]
+[gd_scene load_steps=26 format=3 uid="uid://br2glufpoqlp3"]
 
-[ext_resource type="Script" uid="uid://boyh22i860hn6" path="res://pistol.gd" id="1_1e1q2"]
 [ext_resource type="Resource" uid="uid://dqfl5mrh4fy1b" path="res://resources/weapons/pistol.tres" id="2_35m0f"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png" id="2_bhi57"]
 [ext_resource type="Texture2D" uid="uid://cutcn2v8go1v1" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_1.png" id="3_8fh6q"]
@@ -24,6 +23,29 @@
 [ext_resource type="Texture2D" uid="uid://b6uy6v6mjjdwd" path="res://assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_19.png" id="21_ywdqx"]
 [ext_resource type="AudioStream" uid="uid://chqjphffol8w4" path="res://assets/sounds/weapons/pistol_reload.mp3" id="25_y6eha"]
 [ext_resource type="AudioStream" uid="uid://brdruxs4xuq7c" path="res://assets/sounds/weapons/empty.mp3" id="26_mf61i"]
+
+[sub_resource type="GDScript" id="GDScript_laq0g"]
+script/source = "extends Weapon
+
+class_name Pistol
+#
+#func _init() -> void:
+	#reload_size = max_shots
+	#super()
+	#
+#func fire(is_automatic_fire = false):
+	#if(!check_is_ready(is_automatic_fire)):
+		#return 
+		#
+	#muzzle_flash()
+	#spwanBullet(bullet_spawn_point.global_rotation)
+	#
+	#super()
+#
+#
+#func _on_reload_timer_timeout() -> void:
+	#super()
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sufqc"]
 animations = [{
@@ -94,7 +116,7 @@ animations = [{
 }]
 
 [node name="Pistol" type="Node2D"]
-script = ExtResource("1_1e1q2")
+script = SubResource("GDScript_laq0g")
 stats = ExtResource("2_35m0f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -12,6 +12,7 @@ script = ExtResource("1_1vsk4")
 weapon_name = "pistol"
 cooldown_time = 0.3
 max_shots = 13
+reload_size = 13
 reload_time = 1.5
 is_automatic = false
 reload_sound = ExtResource("2_i4ekl")

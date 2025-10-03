@@ -1,6 +1,5 @@
-[gd_scene load_steps=25 format=3 uid="uid://bs2fmnnvo1wbl"]
+[gd_scene load_steps=25 format=3 uid="uid://cq48qsr7e4tc"]
 
-[ext_resource type="Script" uid="uid://dnyi4ww3ntgch" path="res://rifle.gd" id="1_d5040"]
 [ext_resource type="Texture2D" uid="uid://cdylr3khlf3vo" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png" id="2_o26v7"]
 [ext_resource type="Texture2D" uid="uid://bkh77afdcwlid" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_1.png" id="3_d5040"]
 [ext_resource type="Texture2D" uid="uid://cg2gsk2wsedi0" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_2.png" id="4_krc13"]
@@ -23,6 +22,35 @@
 [ext_resource type="Texture2D" uid="uid://cn3accuh01fye" path="res://assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_19.png" id="21_tjwi8"]
 [ext_resource type="AudioStream" uid="uid://41yj3sx3wiyh" path="res://assets/sounds/weapons/rifle-reload.mp3" id="25_f8nb7"]
 [ext_resource type="AudioStream" uid="uid://brdruxs4xuq7c" path="res://assets/sounds/weapons/empty.mp3" id="26_c58fl"]
+
+[sub_resource type="GDScript" id="GDScript_v0xkt"]
+script/source = "extends Weapon
+
+class_name Rifle
+
+func _init() -> void:
+	weapon_name = \"rifle\"
+	cooldown_time = 0.2
+	max_shots = 30
+	reload_time = 3.0
+	reload_size = max_shots
+	is_automatic = true
+	super()
+	
+func fire(is_automatic_fire = false):
+	
+	if(!check_is_ready(is_automatic_fire)):
+		return 
+		
+	muzzle_flash()
+	spwanBullet(bullet_spawn_point.global_rotation)	
+	
+	super()
+
+
+func _on_reload_timer_timeout() -> void:
+	super()
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_syw4h"]
 animations = [{
@@ -93,7 +121,7 @@ animations = [{
 }]
 
 [node name="Rifle" type="Node2D"]
-script = ExtResource("1_d5040")
+script = SubResource("GDScript_v0xkt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_syw4h")

@@ -10,34 +10,20 @@ class_name Weapon
 			
 		if not is_node_ready():
 			await ready
-			
-
 		
 signal finished_reloading
 
-#var weapon_name : String
+
 var is_shooting = false
 var is_reloading = false
-#var cooldown_time : float
-
-#var max_shots : int
 var current_shots : int
-var reload_size: int
-#var reload_time : float
-#var is_automatic : bool
 
-
-
-
-#@onready var bullet_spawn_point = $BulletSpawnPoint
-#@onready var muzzle_flash_point = $MuzzleFlashPoint
 @onready var cooldown_timer = $CooldownTimer
 @onready var reload_timer = $ReloadTimer
 @onready var reload_sound = $ReloadSound
 @onready var empty_sound = $EmptySound
 @onready var bullet_spawn_location = $BulletSpawnPoint
 @onready var muzzle_flash_location = $MuzzleFlashPoint
-
 
 func _init() -> void:
 	pass
@@ -66,8 +52,6 @@ func reload():
 		reload_timer.start()
 		reload_sound.play()
 		
-	
-
 func is_ready(is_automatic_fire = false):
 
 	if(is_automatic_fire && !stats.is_automatic):
@@ -138,6 +122,6 @@ func get_shoot_animation():
 		return "shoot_" + stats.weapon_name
 
 func _on_reload_timer_timeout() -> void:
-	current_shots = min(current_shots + reload_size, stats.max_shots)
+	current_shots = min(current_shots + stats.reload_size, stats.max_shots)
 	is_reloading = false
 	finished_reloading.emit()
