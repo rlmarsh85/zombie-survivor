@@ -70,10 +70,6 @@ func spawn_wave():
 	
 	for i in range(num_enemies):
 		spawn_enemy()
-		#var wait_time = randf_range(0.02, 0.05)
-		#internal_timer.wait_time = wait_time
-		#internal_timer.start()
-
 
 func spawn_enemy():
 	var zombie = zombie_scene.instantiate()
@@ -85,4 +81,3 @@ func spawn_enemy():
 		target_parent = self
 			
 	target_parent.add_child(zombie)
-	zombie.move_zombie()	

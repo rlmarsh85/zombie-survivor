@@ -19,7 +19,13 @@ var player : Node2D
 
 const PATHFINDING_SKIP_FRAMES = 10
 var frame_counter = 0
-var current_direction: Vector2
+var wobble_time: float
+#@export var wobble_strength: float = 0.15  # Max angle offset in radians (about 8.6 degrees)
+#@export var wobble_speed: float = 5.0      # How fast the wobble changes (per second)
+
+@export var wobble_strength: float = randf_range(0.05, 0.35)  # Max angle offset in radians (about 8.6 degrees)
+@export var wobble_speed: float = randf_range(2.0,7.0)      # How fast the wobble changes (per second)
+
 var current_target_point: Vector2 
 
 func _ready() -> void:
@@ -35,12 +41,12 @@ func _physics_process(_delta: float) -> void:
 	if not player:
 		return
 	
-	move_zombie()
+	move_zombie(_delta)
 
 func set_speed(new_speed : int):
 	base_speed = new_speed
 	
-func move_zombie() -> void:
+func move_zombie(delta) -> void:
 	if not player or player.is_dead:
 		return
 
@@ -60,8 +66,12 @@ func move_zombie() -> void:
 		velocity = direction_to_point * base_speed
 	else:
 		velocity = Vector2.ZERO
+		
+	wobble_time += delta * wobble_speed
+	var wobble_angle = sin(wobble_time) * wobble_strength
+	velocity = velocity.rotated(wobble_angle)
 
-	rotation = direction_to_point.angle()
+	rotation = velocity.angle()
 	move_and_slide()			
 	
 func take_damage() -> void:
@@ -108,5 +118,5 @@ func _on_attack_radius_body_exited(body: Node2D) -> void:
 
 
 func _on_alert_timer_timeout() -> void:
-	var speed_factor = randf_range(0.3, 1.1)
+	var speed_factor = randf_range(0.6, 1.1)
 	set_speed(BASE_RUN_SPEED * speed_factor)

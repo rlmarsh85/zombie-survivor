@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://tibeotsu3np"]
+[gd_scene load_steps=14 format=4 uid="uid://tibeotsu3np"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player.tscn" id="1_3hls8"]
 [ext_resource type="Script" uid="uid://d08hintvh4ejs" path="res://level_1.gd" id="1_hn12h"]
@@ -7507,12 +7507,6 @@ sources/0 = SubResource("TileSetAtlasSource_5hph3")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7kpp"]
 size = Vector2(95, 705)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjebc"]
-size = Vector2(187.5, 766)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rr72"]
-size = Vector2(89, 242)
-
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hn12h")
 zombie_spawaner = ExtResource("2_ihfcg")
@@ -7533,41 +7527,21 @@ position = Vector2(1001, 524)
 scale = Vector2(0.25, 0.25)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 
-[node name="ZombieSpawnZone" parent="." groups=["spawns"] instance=ExtResource("7_j7kpp")]
+[node name="ZombieSpawnZone" parent="." instance=ExtResource("7_j7kpp")]
 collision_layer = 0
 collision_mask = 0
 zombie_scene = ExtResource("2_ihfcg")
 timer_duration = 5.0
 shape_node_path = NodePath("CollisionShape2D")
+min_enemies = 25
+max_enemies = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieSpawnZone"]
 position = Vector2(-17, 528.5)
 shape = SubResource("RectangleShape2D_j7kpp")
-
-[node name="ZombieSpawnZone2" parent="." groups=["spawns"] instance=ExtResource("7_j7kpp")]
-collision_layer = 0
-collision_mask = 0
-zombie_scene = ExtResource("2_ihfcg")
-timer_duration = 7.0
-shape_node_path = NodePath("CollisionShape2D")
-max_enemies = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieSpawnZone2"]
-position = Vector2(1965.25, 527)
-shape = SubResource("RectangleShape2D_bjebc")
-
-[node name="ZombieSpawnZone3" parent="." groups=["spawns"] instance=ExtResource("7_j7kpp")]
-zombie_scene = ExtResource("2_ihfcg")
-timer_duration = 20.0
-shape_node_path = NodePath("CollisionShape2D")
-min_enemies = 15
-max_enemies = 30
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieSpawnZone3"]
-position = Vector2(-17, 801)
-shape = SubResource("RectangleShape2D_5rr72")
 
 [connection signal="go_button_pressed" from="HUD/MenuHUD" to="." method="_on_hud_go_button_pressed"]
 [connection signal="fired_weapon" from="Player" to="HUD/GameplayHUD" method="update_ammo_count"]
