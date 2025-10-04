@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=7 format=3 uid="uid://bfuyp3ri6p5v8"]
+
+[ext_resource type="AudioStream" uid="uid://b06shwsqlp16b" path="res://weapons/sounds/shotgun_reload.mp3" id="1_4rfis"]
+[ext_resource type="PackedScene" uid="uid://b0clo3ht0xkao" path="res://weapons/bullet/bullet.tscn" id="1_l7w0u"]
+[ext_resource type="Script" uid="uid://b1u46468t7iej" path="res://weapons/common/weapon_stats.gd" id="1_v4xi8"]
+[ext_resource type="AudioStream" uid="uid://brdruxs4xuq7c" path="res://weapons/sounds/empty.mp3" id="2_jbf80"]
+[ext_resource type="PackedScene" uid="uid://d4l8h4ddk6v2n" path="res://weapons/effects/muzzle_flash/muzzle_flash.tscn" id="3_tnw6x"]
+[ext_resource type="AudioStream" uid="uid://cisj2fdp3qmm2" path="res://weapons/sounds/shotgun-shot.mp3" id="6_jbf80"]
+
+
+[resource]
+script = ExtResource("1_v4xi8")
+weapon_name = "shotgun"
+cooldown_time = 1.0
+max_shots = 6
+reload_size = 1
+reload_time = 1.0
+is_automatic = false
+reload_sound = ExtResource("1_4rfis")
+empty_sound = ExtResource("2_jbf80")
+muzzle_flash_position = Vector2(160, 48)
+bullet_spawn_position = Vector2(146, 48)
+bullet_scene = ExtResource("1_l7w0u")
+muzzle_scene = ExtResource("3_tnw6x")
+shoot_sound = ExtResource("6_jbf80")
+metadata/_custom_type_script = "uid://b1u46468t7iej"

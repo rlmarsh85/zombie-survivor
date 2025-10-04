@@ -13,11 +13,11 @@ config_version=5
 config/name="Zombie Survivor"
 run/main_scene="uid://tibeotsu3np"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://default/icon.svg"
 
 [autoload]
 
-WeaponsDB="*res://scripts/data/WeaponsDB.gd"
+WeaponsDB="*res://data/WeaponsDB.gd"
 
 [display]
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://t7unxrrv75ln"]
+
+[ext_resource type="PackedScene" uid="uid://chavunog23u8s" path="res://weapons/common/weapon.tscn" id="1_hn68x"]
+[ext_resource type="AudioStream" uid="uid://dx1ym7cvodxi" path="res://weapons/sounds/shotgun_rack.mp3" id="2_5bb75"]
+[ext_resource type="Script" uid="uid://bbch43kyldldj" path="res://weapons/shotgun/shotgun.gd" id="2_7oeqp"]
+
+[node name="Weapon" instance=ExtResource("1_hn68x")]
+script = ExtResource("2_7oeqp")
+
+[node name="CockSound" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource("2_5bb75")
