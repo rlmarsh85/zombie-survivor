@@ -10,7 +10,7 @@ const WANDER_SPEED = 75
 const BASE_RUN_SPEED = 250
 
 
-const DeathEffect = preload("res://zombie_death.tscn")
+const DeathEffect = preload("res://enemies/normal_zombie/effects/zombie_death.tscn")
 const ATTACK_FRAME_INDEX = 6
 
 @export var base_speed : int
