@@ -15,6 +15,10 @@ run/main_scene="uid://tibeotsu3np"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+WeaponsDB="*res://scripts/data/WeaponsDB.gd"
+
 [display]
 
 window/size/viewport_width=1920

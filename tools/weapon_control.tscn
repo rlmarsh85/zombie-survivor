@@ -1,0 +1,105 @@
+[gd_scene load_steps=23 format=3 uid="uid://dtdhxj7etwnxb"]
+
+[ext_resource type="Script" uid="uid://fox4o0eqces" path="res://tools/weapon_editor.gd" id="1_4fvtn"]
+[ext_resource type="Texture2D" uid="uid://bkokkph1u1uuy" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_0.png" id="2_aubie"]
+[ext_resource type="Texture2D" uid="uid://b1rs7qd1cssyx" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_1.png" id="3_h8c2c"]
+[ext_resource type="Texture2D" uid="uid://dig5b0h73ssfb" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_2.png" id="4_2vwan"]
+[ext_resource type="Texture2D" uid="uid://b0jvndrd7q4ih" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_3.png" id="5_y0lt7"]
+[ext_resource type="Texture2D" uid="uid://0r1hgkgcp1au" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_4.png" id="6_8egk8"]
+[ext_resource type="Texture2D" uid="uid://l0w5ag60ij7" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_5.png" id="7_2bqbj"]
+[ext_resource type="Texture2D" uid="uid://dhn56nkbr1frs" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_6.png" id="8_rv5ks"]
+[ext_resource type="Texture2D" uid="uid://bhnb7tg2gnpk5" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_7.png" id="9_rjf57"]
+[ext_resource type="Texture2D" uid="uid://cmox3ulm4fhhq" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_8.png" id="10_hckg4"]
+[ext_resource type="Texture2D" uid="uid://b0rmsmyoe0uue" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_9.png" id="11_ihwuh"]
+[ext_resource type="Texture2D" uid="uid://bj0yi7oba2h1l" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_10.png" id="12_ef2qg"]
+[ext_resource type="Texture2D" uid="uid://bpgjx3dwudqti" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_11.png" id="13_5civh"]
+[ext_resource type="Texture2D" uid="uid://b48qgpjyfgrjb" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_12.png" id="14_t360u"]
+[ext_resource type="Texture2D" uid="uid://hgv0gpkp2ibm" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_13.png" id="15_un2mc"]
+[ext_resource type="Texture2D" uid="uid://dakwiwx08pia0" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_14.png" id="16_h0u5s"]
+[ext_resource type="Texture2D" uid="uid://p5yh11u1bckc" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_15.png" id="17_i5log"]
+[ext_resource type="Texture2D" uid="uid://x8dgjwjvpaxp" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_16.png" id="18_21rn1"]
+[ext_resource type="Texture2D" uid="uid://bctodh5f7k6hy" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_17.png" id="19_t2anm"]
+[ext_resource type="Texture2D" uid="uid://csl0t5qe2kots" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_18.png" id="20_hgvin"]
+[ext_resource type="Texture2D" uid="uid://23o2fk0os4ag" path="res://assets/Top_Down_Survivor/shotgun/idle/survivor-idle_shotgun_19.png" id="21_n08v5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o0l8u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aubie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h8c2c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2vwan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y0lt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8egk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2bqbj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rv5ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rjf57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hckg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ihwuh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ef2qg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5civh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_t360u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_un2mc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_h0u5s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_i5log")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_21rn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_t2anm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_hgvin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_n08v5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="WeaponControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4fvtn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o0l8u")
+
+[node name="MuzzleFlashPoint" type="Node2D" parent="."]
+position = Vector2(160, 48)
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(146, 48)

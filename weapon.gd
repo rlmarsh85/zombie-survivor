@@ -74,7 +74,7 @@ func fire(_is_automatic_fire = false):
 		return 
 		
 	muzzle_flash()
-	spwanBullet()			
+	spwan_bullet()			
 
 	is_shooting = true
 	cooldown_timer.start()
@@ -85,11 +85,17 @@ func fire(_is_automatic_fire = false):
 	add_child(sound_player)
 	sound_player.play()
 	sound_player.finished.connect(sound_player.queue_free)
+
 	
-func spwanBullet():
+func spwan_bullet(_custom_rotation=null):
 	var bullet = stats.bullet_scene.instantiate()	
 	bullet.global_position = bullet_spawn_location.global_position
-	bullet.global_rotation = bullet_spawn_location.global_rotation
+	
+	var final_rotation = bullet_spawn_location.global_rotation
+	if _custom_rotation:
+		final_rotation = _custom_rotation
+		
+	bullet.global_rotation = final_rotation
 	get_tree().root.add_child(bullet)	
 
 func get_current_ammo():

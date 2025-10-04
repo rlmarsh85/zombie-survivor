@@ -7,12 +7,6 @@ signal weapon_reloaded
 signal stamina_changed
 
 enum State { IDLE, WALKING }
-const WEAPON_SCENE = preload("res://weapon.tscn")
-
-const WEAPONS = [
-		"res://resources/weapons/pistol.tres",
-		"res://resources/weapons/rifle.tres"
-	]
 
 const WALK_SPEED = 200
 const RUN_SPEED = 500
@@ -55,9 +49,10 @@ func initialize_weapons():
 	current_weapon = null
 	weapon_inventory.clear()
 	
-	for weapon in WEAPONS:
-		var weapon_scene = WEAPON_SCENE.instantiate()
-		weapon_scene.stats = load(weapon) 
+	for weapon in WeaponDB.WEAPONS:
+
+		var weapon_scene = weapon.scene.instantiate()
+		weapon_scene.stats = load(weapon.stats_path) 
 				
 		weapon_container.add_child(weapon_scene)
 		weapon_inventory.append(weapon_scene)
