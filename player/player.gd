@@ -13,6 +13,7 @@ const RUN_SPEED = 500
 const KNIFE_ATTACK_ANIMATION_NAME = "attack_knife"
 const MINIMUM_KNIFE_STAMINA = 0.5
 const MAXIMUM_KNIFE_VICTIMS = 2
+const MAX_HEALTH = 100
 
 @onready var walk_sound: AudioStreamPlayer2D = $Footstep
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
@@ -26,24 +27,23 @@ const MAXIMUM_KNIFE_VICTIMS = 2
 @onready var animator = $AnimatedSprite2D
 
 @export var is_dead = true
+
 var current_state = State.IDLE
 var is_walking = false
-
 var is_knife_attacking = false
-
 var current_knife_victims = 0
-
 var current_stamina
-
 var weapon_inventory: Array[Weapon] = []
 var current_weapon : Weapon
+var current_health: int
 
-var screen_size
+#var screen_size
 
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
+	#screen_size = get_viewport_rect().size
 	initialize_weapons()		
 	set_new_stamina(max_stamina, false)
+	set_new_health(MAX_HEALTH)
 
 func initialize_weapons():
 	current_weapon = null
@@ -98,6 +98,9 @@ func set_new_stamina(new_stamina_value, should_signal = true):
 	current_stamina = new_stamina_value
 	if(should_signal):
 		stamina_changed.emit()		
+		
+func set_new_health(new_health_value):
+	current_health = new_health_value		
 
 func get_current_stamina():
 	return current_stamina
@@ -181,17 +184,24 @@ func handle_animation():
 	
 	animator.play()
 	
-func gets_eaten() -> void:
+func player_dies() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	death_sound.play()
 	is_dead = true
 	hide()
-	player_died.emit()	
+	player_died.emit()
+
+
+func take_damage(damage_amount: int) -> void:
+	set_new_health(current_health - damage_amount)
+	if(current_health <= 0):
+		player_dies()
 	
 func resurrect() -> void:
 	is_dead = false
 	set_new_stamina(max_stamina)
 	initialize_weapons()
+	set_new_health(MAX_HEALTH)
 	$CollisionShape2D.set_deferred("disabled", false)
 	
 func get_current_ammo():
@@ -237,4 +247,3 @@ func _on_knife_attack_range_body_entered(body: Node2D) -> void:
 	):
 		current_knife_victims += 1
 		body.take_damage()
-	

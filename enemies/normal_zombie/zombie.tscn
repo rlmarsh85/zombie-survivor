@@ -1,7 +1,8 @@
-[gd_scene load_steps=53 format=3 uid="uid://vokqybover7a"]
+[gd_scene load_steps=55 format=3 uid="uid://vokqybover7a"]
 
 [ext_resource type="Script" uid="uid://begt24v412osf" path="res://enemies/normal_zombie/zombie.gd" id="1_o8ulx"]
 [ext_resource type="Texture2D" uid="uid://ce75dyy1700g1" path="res://enemies/normal_zombie/assets/sprites/skeleton-attack_0.png" id="2_ejn0j"]
+[ext_resource type="Resource" uid="uid://cvwko1e64bdyu" path="res://data/damage/bite.tres" id="2_s4a6i"]
 [ext_resource type="Texture2D" uid="uid://cax1mw5owy82y" path="res://enemies/normal_zombie/assets/sprites/skeleton-attack_1.png" id="3_rh77v"]
 [ext_resource type="Texture2D" uid="uid://0scrxk40dsh2" path="res://enemies/normal_zombie/assets/sprites/skeleton-attack_2.png" id="4_r1skj"]
 [ext_resource type="Texture2D" uid="uid://bbw6ophu1how3" path="res://enemies/normal_zombie/assets/sprites/skeleton-attack_3.png" id="5_qy8b2"]
@@ -205,11 +206,15 @@ radius = 148.054
 [sub_resource type="CircleShape2D" id="CircleShape2D_maxkh"]
 radius = 108.167
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_s25so"]
+radius = 116.276
+
 [node name="Zombie" type="CharacterBody2D" groups=["enemies"]]
 scale = Vector2(0.25, 0.25)
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_o8ulx")
+damage = ExtResource("2_s4a6i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ls26a")
@@ -262,8 +267,18 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="BiteHitbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="BiteHitBoxCollision" type="CollisionShape2D" parent="BiteHitbox"]
+position = Vector2(0, 24)
+shape = SubResource("CircleShape2D_s25so")
+disabled = true
+
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="AttackRadius" to="." method="_on_attack_radius_body_entered"]
 [connection signal="body_exited" from="AttackRadius" to="." method="_on_attack_radius_body_exited"]
 [connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
+[connection signal="area_entered" from="BiteHitbox" to="." method="deal_damage"]
+[connection signal="area_exited" from="BiteHitbox" to="." method="deal_damage"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=208 format=3 uid="uid://bvitx3lov2d7c"]
+[gd_scene load_steps=209 format=3 uid="uid://bvitx3lov2d7c"]
 
 [ext_resource type="Script" uid="uid://dav4nn5o5cgjh" path="res://player/player.gd" id="1_c0yt3"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://player/assets/sprites/handgun/idle/survivor-idle_handgun_0.png" id="1_pbfsw"]
@@ -886,13 +886,16 @@ fill_from = Vector2(0.5, 0.472477)
 radius = 23.0
 height = 266.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wveng"]
+radius = 96.0208
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 26
 script = ExtResource("1_c0yt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_331ug")
-animation = &"attack_knife"
+animation = &"idle_pistol"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 15)
@@ -928,6 +931,13 @@ position = Vector2(1, 20)
 shape = SubResource("CapsuleShape2D_ib1vr")
 
 [node name="WeaponContainer" type="Node2D" parent="."]
+
+[node name="DamageRange" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRange"]
+position = Vector2(-6, 16)
+shape = SubResource("CircleShape2D_wveng")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]

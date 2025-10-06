@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var animator = $AnimatedSprite2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var zombie_sound_container: Node2D = $ZombieSounds
-
+@onready var bite_hit_box_collision: CollisionShape2D = $BiteHitbox/BiteHitBoxCollision 
 @onready var attack_sound: Node2D = $AttackSound
 
 const WANDER_SPEED = 75
@@ -14,6 +14,7 @@ const DeathEffect = preload("res://enemies/normal_zombie/effects/zombie_death.ts
 const ATTACK_FRAME_INDEX = 6
 
 @export var base_speed : int
+@export var damage : DamageStats
 
 var player : Node2D
 
@@ -50,7 +51,6 @@ func move_zombie(delta) -> void:
 	if not player or player.is_dead:
 		return
 
-
 	frame_counter += 1
 	if frame_counter >= PATHFINDING_SKIP_FRAMES:
 		navigation_agent.target_position = player.global_position
@@ -58,7 +58,6 @@ func move_zombie(delta) -> void:
 
 
 	current_target_point = navigation_agent.get_next_path_position()
-
 
 	var direction_to_point = global_position.direction_to(current_target_point)
 
@@ -72,7 +71,7 @@ func move_zombie(delta) -> void:
 	velocity = velocity.rotated(wobble_angle)
 
 	rotation = velocity.angle()
-	move_and_slide()			
+	move_and_slide()
 	
 func take_damage() -> void:
 	var death_effect = DeathEffect.instantiate()
@@ -82,6 +81,9 @@ func take_damage() -> void:
 	death_effect.emitting = true
 		
 	queue_free()
+	
+func get_damage() -> DamageStats:
+	return damage	
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
@@ -90,7 +92,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 func _on_animated_sprite_2d_frame_changed() -> void:
 	
 	if $AnimatedSprite2D.animation == "attack" and $AnimatedSprite2D.frame == ATTACK_FRAME_INDEX:
-		player.gets_eaten()
+		bite_hit_box_collision.disabled = false
+		await get_tree().create_timer(0.1).timeout
+		bite_hit_box_collision.disabled = true		
+		
 
 
 func stop_moving():
@@ -120,3 +125,7 @@ func _on_attack_radius_body_exited(body: Node2D) -> void:
 func _on_alert_timer_timeout() -> void:
 	var speed_factor = randf_range(0.6, 1.1)
 	set_speed(BASE_RUN_SPEED * speed_factor)
+
+
+func deal_damage(area: Area2D) -> void:
+	DamageCalc.calculate_damage(self, area.owner)

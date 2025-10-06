@@ -1,0 +1,4 @@
+
+
+
+enum DAMAGE_TYPES {ZOMBIE_BITE, FIRE}
