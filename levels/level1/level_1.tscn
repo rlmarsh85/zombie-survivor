@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://tibeotsu3np"]
+[gd_scene load_steps=17 format=4 uid="uid://tibeotsu3np"]
 
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player/player.tscn" id="1_3hls8"]
 [ext_resource type="Script" uid="uid://d08hintvh4ejs" path="res://levels/level1/level_1.gd" id="1_hn12h"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cfa68h3o6ixko" path="res://levels/tilemaps/tilesheet_complete.png" id="5_rka8t"]
 [ext_resource type="PackedScene" uid="uid://ds6gbhjrwuel2" path="res://UI/in_game_hud/gameplay_hud.tscn" id="6_5hph3"]
 [ext_resource type="PackedScene" uid="uid://djhhjs38wiuhq" path="res://levels/common/zombie_spawn_zone.tscn" id="7_j7kpp"]
+[ext_resource type="PackedScene" uid="uid://dfdsasuhxpnxf" path="res://levels/environment/crate/crate.tscn" id="8_ebna0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rka8t"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -7547,6 +7548,7 @@ position = Vector2(-17, 528.5)
 shape = SubResource("RectangleShape2D_j7kpp")
 
 [node name="ZombieSpawnZone2" parent="." groups=["spawns"] instance=ExtResource("7_j7kpp")]
+visible = false
 collision_layer = 0
 collision_mask = 0
 zombie_scene = ExtResource("2_ihfcg")
@@ -7559,6 +7561,7 @@ position = Vector2(1965.25, 527)
 shape = SubResource("RectangleShape2D_bjebc")
 
 [node name="ZombieSpawnZone3" parent="." groups=["spawns"] instance=ExtResource("7_j7kpp")]
+visible = false
 zombie_scene = ExtResource("2_ihfcg")
 timer_duration = 20.0
 shape_node_path = NodePath("CollisionShape2D")
@@ -7568,6 +7571,9 @@ max_enemies = 30
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZombieSpawnZone3"]
 position = Vector2(-17, 801)
 shape = SubResource("RectangleShape2D_5rr72")
+
+[node name="Crate" parent="." instance=ExtResource("8_ebna0")]
+position = Vector2(819, 516)
 
 [connection signal="go_button_pressed" from="HUD/MenuHUD" to="." method="_on_hud_go_button_pressed"]
 [connection signal="fired_weapon" from="Player" to="HUD/GameplayHUD" method="update_ammo_count"]

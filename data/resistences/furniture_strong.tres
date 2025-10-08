@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ResistenceStats" load_steps=2 format=3 uid="uid://b51yfjnfqk8vh"]
+
+[ext_resource type="Script" uid="uid://bfra3xqawydby" path="res://data/resistences/resistence_stats.gd" id="1_4r2ct"]
+
+[resource]
+script = ExtResource("1_4r2ct")
+resistences = Dictionary[int, float]({
+0: 0.95,
+1: 0.75,
+2: 1.0
+})
+metadata/_custom_type_script = "uid://bfra3xqawydby"

@@ -19,9 +19,9 @@ func get_damage() -> DamageStats:
 func _on_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("damagable"):
-		var target : Node2D = body.owner
-		if(!body.owner):
-			target = body
+		var target : Node2D = body
+		#if(!body.owner):
+			#target = body
 		DamageCalc.calculate_damage(self, target)
 	
 	queue_free()
