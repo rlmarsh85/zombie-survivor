@@ -209,7 +209,7 @@ radius = 108.167
 [sub_resource type="CircleShape2D" id="CircleShape2D_s25so"]
 radius = 116.276
 
-[node name="Zombie" type="CharacterBody2D" groups=["enemies"]]
+[node name="Zombie" type="CharacterBody2D" groups=["damagable", "enemies"]]
 scale = Vector2(0.25, 0.25)
 collision_layer = 2
 collision_mask = 13

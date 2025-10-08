@@ -15,11 +15,16 @@ const ATTACK_FRAME_INDEX = 6
 
 @export var base_speed : int
 @export var damage : DamageStats
+@export var max_health : int = 25
+var current_health: int
 
 var player : Node2D
 
 const PATHFINDING_SKIP_FRAMES = 10
 var frame_counter = 0
+var current_target_point: Vector2 
+
+
 var wobble_time: float
 #@export var wobble_strength: float = 0.15  # Max angle offset in radians (about 8.6 degrees)
 #@export var wobble_speed: float = 5.0      # How fast the wobble changes (per second)
@@ -27,7 +32,7 @@ var wobble_time: float
 @export var wobble_strength: float = randf_range(0.05, 0.35)  # Max angle offset in radians (about 8.6 degrees)
 @export var wobble_speed: float = randf_range(2.0,7.0)      # How fast the wobble changes (per second)
 
-var current_target_point: Vector2 
+
 
 func _ready() -> void:
 	animator.animation = "walk"
@@ -36,6 +41,7 @@ func _ready() -> void:
 	
 	play_zombie_sounds()
 	set_speed(WANDER_SPEED)
+	current_health = max_health
 
 
 func _physics_process(_delta: float) -> void:
@@ -73,7 +79,15 @@ func move_zombie(delta) -> void:
 	rotation = velocity.angle()
 	move_and_slide()
 	
-func take_damage() -> void:
+func set_new_health(new_health : int) -> void:
+	current_health = new_health
+	
+func take_damage(damage_amount : int) -> void:
+	set_new_health(current_health - damage_amount)
+	if(current_health <= 0):
+		zombie_dies()
+
+func zombie_dies() -> void:			
 	var death_effect = DeathEffect.instantiate()
 	
 	get_parent().add_child(death_effect)
