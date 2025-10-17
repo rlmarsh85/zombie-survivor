@@ -18,6 +18,7 @@ const MAX_HEALTH = 100
 @onready var walk_sound: AudioStreamPlayer2D = $Footstep
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 @onready var weapon_container : Node2D = $WeaponContainer
+@onready var knife : Node2D = $Knife
 
 
 @export var speed = 200
@@ -242,8 +243,8 @@ func weapon_finished_reloading():
 func _on_knife_attack_range_body_entered(body: Node2D) -> void:
 	if (
 		is_knife_attacking && 
-		body.has_method("take_damage") &&
+		body.is_in_group("enemies") &&
 		current_knife_victims < MAXIMUM_KNIFE_VICTIMS
 	):
 		current_knife_victims += 1
-		body.take_damage()
+		DamageCalc.calculate_damage(knife, body)

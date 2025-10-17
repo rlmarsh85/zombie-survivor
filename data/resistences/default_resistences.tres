@@ -7,6 +7,7 @@ script = ExtResource("1_ax813")
 resistences = Dictionary[int, float]({
 0: 1.0,
 1: 1.0,
-2: 1.0
+2: 1.0,
+3: 1.0
 })
 metadata/_custom_type_script = "uid://bfra3xqawydby"

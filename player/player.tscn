@@ -1,4 +1,4 @@
-[gd_scene load_steps=209 format=3 uid="uid://bvitx3lov2d7c"]
+[gd_scene load_steps=210 format=3 uid="uid://bvitx3lov2d7c"]
 
 [ext_resource type="Script" uid="uid://dav4nn5o5cgjh" path="res://player/player.gd" id="1_c0yt3"]
 [ext_resource type="Texture2D" uid="uid://h12n7fc0a76i" path="res://player/assets/sprites/handgun/idle/survivor-idle_handgun_0.png" id="1_pbfsw"]
@@ -202,6 +202,7 @@
 [ext_resource type="Texture2D" uid="uid://dh6josjkhtorq" path="res://player/assets/sprites/shotgun/reload/survivor-reload_shotgun_17.png" id="114_gldnr"]
 [ext_resource type="Texture2D" uid="uid://br813x6ogxxt1" path="res://player/assets/sprites/shotgun/reload/survivor-reload_shotgun_18.png" id="115_p3pkq"]
 [ext_resource type="Texture2D" uid="uid://drj0hq75cgp5x" path="res://player/assets/sprites/shotgun/reload/survivor-reload_shotgun_19.png" id="116_3mkk3"]
+[ext_resource type="PackedScene" uid="uid://cuo2mivh0ju1s" path="res://player/knife.tscn" id="202_iiowf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_331ug"]
 animations = [{
@@ -904,6 +905,8 @@ shape = SubResource("CircleShape2D_pbfsw")
 [node name="Footstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("88_uckl6")
 parameters/looping = true
+
+[node name="Knife" parent="." instance=ExtResource("202_iiowf")]
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("89_5ihbc")

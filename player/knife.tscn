@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuo2mivh0ju1s"]
+
+[ext_resource type="Script" uid="uid://cgjjk8p58u5q4" path="res://knife.gd" id="1_yqsby"]
+[ext_resource type="Resource" uid="uid://ci71rymfeq7vp" path="res://data/damage/knife.tres" id="2_v2ed6"]
+
+[node name="Knife" type="Node2D"]
+script = ExtResource("1_yqsby")
+damage = ExtResource("2_v2ed6")
