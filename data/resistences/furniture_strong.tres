@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_4r2ct")
 resistences = Dictionary[int, float]({
-0: 0.95,
-1: 0.75,
+0: 0.05,
+1: 0.25,
 2: 1.0
 })
 metadata/_custom_type_script = "uid://bfra3xqawydby"

@@ -889,8 +889,8 @@ height = 266.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wveng"]
 radius = 96.0208
 
-[node name="Player" type="CharacterBody2D"]
-collision_mask = 26
+[node name="Player" type="CharacterBody2D" groups=["zombietargets"]]
+collision_mask = 90
 script = ExtResource("1_c0yt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

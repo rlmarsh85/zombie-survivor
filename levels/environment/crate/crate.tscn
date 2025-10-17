@@ -7,9 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mo0jf"]
 size = Vector2(127, 127)
 
-[node name="Crate" type="StaticBody2D" groups=["damagable"]]
-collision_layer = 8
-collision_mask = 7
+[node name="Crate" type="StaticBody2D" groups=["damagable", "zombietargets"]]
+collision_layer = 64
+collision_mask = 3
 script = ExtResource("1_m6uu5")
 resistences = ExtResource("2_y4nbd")
 

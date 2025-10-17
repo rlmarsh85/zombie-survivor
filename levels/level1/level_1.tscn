@@ -7575,6 +7575,12 @@ shape = SubResource("RectangleShape2D_5rr72")
 [node name="Crate" parent="." instance=ExtResource("8_ebna0")]
 position = Vector2(819, 516)
 
+[node name="Crate2" parent="." instance=ExtResource("8_ebna0")]
+position = Vector2(312, 478)
+
+[node name="Crate3" parent="." instance=ExtResource("8_ebna0")]
+position = Vector2(1533, 901)
+
 [connection signal="go_button_pressed" from="HUD/MenuHUD" to="." method="_on_hud_go_button_pressed"]
 [connection signal="fired_weapon" from="Player" to="HUD/GameplayHUD" method="update_ammo_count"]
 [connection signal="stamina_changed" from="Player" to="HUD/GameplayHUD" method="update_stamina_bar"]

@@ -207,12 +207,12 @@ radius = 148.054
 radius = 108.167
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s25so"]
-radius = 116.276
+radius = 136.0
 
 [node name="Zombie" type="CharacterBody2D" groups=["damagable", "enemies"]]
 scale = Vector2(0.25, 0.25)
 collision_layer = 2
-collision_mask = 13
+collision_mask = 77
 script = ExtResource("1_o8ulx")
 damage = ExtResource("2_s4a6i")
 
@@ -228,6 +228,7 @@ shape = SubResource("CircleShape2D_ls26a")
 
 [node name="AttackRadius" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 73
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRadius"]
 position = Vector2(-6, 29)
@@ -269,6 +270,7 @@ autostart = true
 
 [node name="BiteHitbox" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 73
 
 [node name="BiteHitBoxCollision" type="CollisionShape2D" parent="BiteHitbox"]
 position = Vector2(0, 24)
@@ -282,3 +284,4 @@ disabled = true
 [connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
 [connection signal="area_entered" from="BiteHitbox" to="." method="deal_damage"]
 [connection signal="area_exited" from="BiteHitbox" to="." method="deal_damage"]
+[connection signal="body_entered" from="BiteHitbox" to="." method="deal_damage_body"]

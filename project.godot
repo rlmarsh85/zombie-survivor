@@ -31,6 +31,7 @@ window/stretch/mode="canvas_items"
 
 damagable=""
 enemies=""
+zombietargets="things the zombies would attack"
 
 [input]
 
@@ -89,6 +90,7 @@ knife_attack={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="player_projectiles"
-2d_physics/layer_4="world_objects"
+2d_physics/layer_4="walls"
 2d_physics/layer_5="player_barriers"
 2d_physics/layer_6="damage"
+2d_physics/layer_7="obstacles"

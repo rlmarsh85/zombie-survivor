@@ -124,14 +124,14 @@ func play_zombie_sounds():
 
 
 func _on_attack_radius_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("zombietargets"):
 		animator.animation = "attack"
 		animator.play()
 		attack_sound.play()
 
 
 func _on_attack_radius_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("zombietargets"):
 		animator.animation = "walk"
 		animator.play()
 
@@ -143,3 +143,6 @@ func _on_alert_timer_timeout() -> void:
 
 func deal_damage(area: Area2D) -> void:
 	DamageCalc.calculate_damage(self, area.owner)
+
+func deal_damage_body(body: Node2D) -> void:
+	DamageCalc.calculate_damage(self, body)
