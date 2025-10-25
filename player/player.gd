@@ -4,7 +4,6 @@ signal player_died
 signal weapon_changed
 signal fired_weapon
 signal weapon_reloaded
-signal stamina_changed
 
 enum State { IDLE, WALKING }
 
@@ -45,6 +44,7 @@ func _ready() -> void:
 	initialize_weapons()		
 	set_new_stamina(max_stamina, false)
 	set_new_health(MAX_HEALTH)
+	GameStatus.max_stamina_changed.emit(max_stamina)
 
 func initialize_weapons():
 	current_weapon = null
@@ -60,6 +60,7 @@ func initialize_weapons():
 		weapon_scene.finished_reloading.connect(weapon_finished_reloading)
 	
 	current_weapon = weapon_inventory[0]
+	GameStatus.ammo_updated.emit(current_weapon.get_current_ammo(), current_weapon.get_max_ammo())
 	weapon_changed.emit()
 	
 func _physics_process(_delta):
@@ -98,7 +99,7 @@ func setSpeed(new_speed):
 func set_new_stamina(new_stamina_value, should_signal = true):
 	current_stamina = new_stamina_value
 	if(should_signal):
-		stamina_changed.emit()		
+		GameStatus.stamina_updated.emit(current_stamina)		
 		
 func set_new_health(new_health_value):
 	current_health = new_health_value		
@@ -138,6 +139,7 @@ func rotate_weapon():
 			current_weapon = weapon_inventory[i + 1]
 			break
 
+	GameStatus.ammo_updated.emit(current_weapon.get_current_ammo(), current_weapon.get_max_ammo())
 	weapon_changed.emit()
 	
 func set_direction():
@@ -168,6 +170,7 @@ func handle_shoot(is_automatic_fire = false) -> void:
 		
 	current_weapon.fire(is_automatic_fire)
 	fired_weapon.emit()
+	GameStatus.ammo_updated.emit(current_weapon.get_current_ammo(), current_weapon.get_max_ammo())
 	
 
 func handle_animation():
@@ -237,6 +240,7 @@ func _on_run_timer_timeout() -> void:
 		set_new_stamina(current_stamina - stamina_step_size * 2)
 		
 func weapon_finished_reloading():
+	GameStatus.ammo_updated.emit(current_weapon.get_current_ammo(), current_weapon.get_max_ammo())
 	weapon_reloaded.emit()		
 
 

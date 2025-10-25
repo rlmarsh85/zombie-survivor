@@ -20,6 +20,7 @@ config/icon="res://default/icon.svg"
 WeaponsDB="*res://data/WeaponsDB.gd"
 Constants="*res://data/constants.gd"
 DamageCalc="*res://system/damage_calculator.gd"
+GameStatus="*res://system/game_state.gd"
 
 [display]
 
