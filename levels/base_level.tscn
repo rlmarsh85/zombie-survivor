@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3ke3kpwbrii7"]
+
+[ext_resource type="PackedScene" uid="uid://ds6gbhjrwuel2" path="res://UI/in_game_hud/gameplay_hud.tscn" id="1_maq6b"]
+[ext_resource type="Script" uid="uid://c1ihdx52wdfvw" path="res://levels/base_level.gd" id="1_satuh"]
+[ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://UI/menu/hud.tscn" id="2_0rg8l"]
+[ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player/player.tscn" id="4_n8wy4"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_satuh")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="GameplayHUD" parent="HUD" instance=ExtResource("1_maq6b")]
+top_level = true
+
+[node name="MenuHUD" parent="HUD" instance=ExtResource("2_0rg8l")]
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("4_n8wy4")]
+position = Vector2(1001, 524)
+scale = Vector2(0.25, 0.25)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+
+[connection signal="go_button_pressed" from="HUD/MenuHUD" to="." method="_on_hud_go_button_pressed"]

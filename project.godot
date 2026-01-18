@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Zombie Survivor"
-run/main_scene="uid://tibeotsu3np"
+run/main_scene="uid://wuux6urrjc0o"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://default/icon.svg"
 
