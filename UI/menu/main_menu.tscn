@@ -38,4 +38,5 @@ text = "How to Play"
 layout_mode = 2
 text = "Quit"
 
+[connection signal="pressed" from="CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Zombie Survivor"
-run/main_scene="uid://wuux6urrjc0o"
+run/main_scene="uid://binjyt4h7ie4y"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://default/icon.svg"
 
@@ -21,6 +21,7 @@ WeaponsDB="*res://data/WeaponsDB.gd"
 Constants="*res://data/constants.gd"
 DamageCalc="*res://system/damage_calculator.gd"
 GameStatus="*res://system/game_state.gd"
+SceneManager="*res://system/scene_manager.tscn"
 
 [display]
 
