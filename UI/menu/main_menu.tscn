@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://binjyt4h7ie4y"]
+[gd_scene load_steps=3 format=3 uid="uid://binjyt4h7ie4y"]
 
 [ext_resource type="Script" uid="uid://bnjunv66d1wr6" path="res://UI/menu/main_menu.gd" id="1_24vui"]
+[ext_resource type="PackedScene" uid="uid://bskoap21ixc5w" path="res://UI/instructions/how_to_play.tscn" id="2_a51uh"]
 
 [node name="Main_Menu" type="ColorRect"]
 anchors_preset = 15
@@ -38,5 +39,11 @@ text = "How to Play"
 layout_mode = 2
 text = "Quit"
 
+[node name="HowToPlay" parent="." instance=ExtResource("2_a51uh")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

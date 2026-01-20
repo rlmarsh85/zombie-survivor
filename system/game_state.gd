@@ -11,6 +11,9 @@ signal max_stamina_changed(new_max_stamina)
 signal quit_game_pressed
 signal new_game_pressed
 
+signal close_instructions_pressed
+signal open_instructions_pressed
+
 
 func _ready() -> void:
 	quit_game_pressed.connect(quit_game)
