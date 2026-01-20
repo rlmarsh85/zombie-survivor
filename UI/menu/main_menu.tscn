@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://binjyt4h7ie4y"]
+[gd_scene load_steps=4 format=3 uid="uid://binjyt4h7ie4y"]
 
 [ext_resource type="Script" uid="uid://bnjunv66d1wr6" path="res://UI/menu/main_menu.gd" id="1_24vui"]
 [ext_resource type="PackedScene" uid="uid://bskoap21ixc5w" path="res://UI/instructions/how_to_play.tscn" id="2_a51uh"]
+[ext_resource type="PackedScene" uid="uid://1cxlac3qrigo" path="res://UI/options/options_menu.tscn" id="3_1nndq"]
 
 [node name="Main_Menu" type="ColorRect"]
 anchors_preset = 15
@@ -44,6 +45,12 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="OptionsMenu" parent="." instance=ExtResource("3_1nndq")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

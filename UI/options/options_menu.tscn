@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://1cxlac3qrigo"]
+
+[ext_resource type="Script" uid="uid://b5ikvngm5oau7" path="res://UI/options/options_menu.gd" id="1_mhgeu"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mhgeu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.175
+anchor_top = 0.175
+anchor_right = 0.825
+anchor_bottom = 0.825
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="PanelContainer" type="PanelContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 90
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Audio" type="VBoxContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="HSlider" type="HSlider" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+
+[node name="Controls" type="VBoxContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="Label" type="Label" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Shoot"
+
+[node name="Button" type="Button" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Left Mouse"
+
+[node name="Label2" type="Label" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Switch Weapons"
+
+[node name="Button2" type="Button" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/TabContainer/Controls/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "F"
+
+[node name="CloseButton" type="Button" parent="ColorRect/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[connection signal="pressed" from="ColorRect/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -14,6 +14,9 @@ signal new_game_pressed
 signal close_instructions_pressed
 signal open_instructions_pressed
 
+signal close_options_pressed
+signal open_options_pressed
+
 
 func _ready() -> void:
 	quit_game_pressed.connect(quit_game)
