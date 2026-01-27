@@ -1,6 +1,8 @@
 extends Node
 
 
+class_name ZombieLevel
+
 @export var zombie_spawaner: PackedScene
 @onready var player = $Player
 @onready var hud = $HUD/MenuHUD
