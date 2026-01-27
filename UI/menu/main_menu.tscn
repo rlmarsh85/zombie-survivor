@@ -51,6 +51,6 @@ visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Options" to="." method="open_options"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HowToPlay" to="." method="open_instructions"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

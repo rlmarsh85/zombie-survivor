@@ -117,4 +117,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Close"
 
-[connection signal="pressed" from="ColorRect/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ColorRect/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="close_instructions"]

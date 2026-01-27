@@ -11,11 +11,10 @@ signal max_stamina_changed(new_max_stamina)
 signal quit_game_pressed
 signal new_game_pressed
 
-signal close_instructions_pressed
-signal open_instructions_pressed
+signal pause_closed_requested
+signal pause_open_requested
 
-signal close_options_pressed
-signal open_options_pressed
+var is_pause_available = false
 
 
 func _ready() -> void:

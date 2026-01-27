@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3ke3kpwbrii7"]
+[gd_scene load_steps=6 format=3 uid="uid://d3ke3kpwbrii7"]
 
 [ext_resource type="PackedScene" uid="uid://ds6gbhjrwuel2" path="res://UI/in_game_hud/gameplay_hud.tscn" id="1_maq6b"]
 [ext_resource type="Script" uid="uid://c1ihdx52wdfvw" path="res://levels/base_level.gd" id="1_satuh"]
 [ext_resource type="PackedScene" uid="uid://dktfhit7grn6v" path="res://UI/menu/hud.tscn" id="2_0rg8l"]
+[ext_resource type="PackedScene" uid="uid://b5jnwfc14n278" path="res://UI/pause/pause_menu.tscn" id="2_p5284"]
 [ext_resource type="PackedScene" uid="uid://bvitx3lov2d7c" path="res://player/player.tscn" id="4_n8wy4"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_satuh")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="HUD" instance=ExtResource("2_p5284")]
+visible = false
+anchors_preset = -1
 
 [node name="GameplayHUD" parent="HUD" instance=ExtResource("1_maq6b")]
 top_level = true

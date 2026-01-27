@@ -1,15 +1,10 @@
 extends Control
 
-func _ready() -> void:
-	GameStatus.close_instructions_pressed.connect(close_self)
+class_name InstructionsMenu
 
 
-func _on_close_button_pressed() -> void:
-	GameStatus.close_instructions_pressed.emit()
-
-
-func close_self() -> void:
-	visible = false
-	
-func open_self() -> void:
+func open_instructions() -> void:
 	visible = true
+	
+func close_instructions() -> void:
+	visible = false

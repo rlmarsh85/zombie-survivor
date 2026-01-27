@@ -11,6 +11,7 @@ func _ready() -> void:
 	
 	stop_spawning()
 	hud.display_start_button()
+	GameStatus.is_pause_available = false
 	gameplay_hud.visible = false
 
 
@@ -22,6 +23,7 @@ func _on_player_player_died() -> void:
 
 func _on_hud_go_button_pressed() -> void:	
 	get_tree().call_group("enemies", "queue_free")
+	GameStatus.is_pause_available = true
 	player.resurrect()
 	hud.hide_display()
 	gameplay_hud.visible = true
