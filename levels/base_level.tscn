@@ -8,6 +8,7 @@
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_satuh")
+survival_time_for_level = 60.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -26,5 +27,8 @@ scale = Vector2(0.25, 0.25)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+
+[node name="SurvivalTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="go_button_pressed" from="HUD/MenuHUD" to="." method="_on_hud_go_button_pressed"]

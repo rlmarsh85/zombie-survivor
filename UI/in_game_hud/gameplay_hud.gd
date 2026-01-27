@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var ammo_amount_label = $AmmoFacet/AmmoAmountLabel
 @onready var stamina_progress = $StaminaFacet/StaminaProgressBar
+@onready var time_remaining = $TimeRemaining
 
 var player : Node2D
 
@@ -18,3 +19,9 @@ func update_ammo_count(current_ammo, max_ammo) -> void:
 
 func update_stamina_bar(new_stamina) -> void:
 	stamina_progress.value = new_stamina
+	
+func _process(delta : float) -> void:
+	var time_left = GameStatus.survival_time_remaining
+	var minutes = floor(time_left / 60)
+	var seconds = int(time_left) % 60	
+	time_remaining.text = "%02d:%02d" % [minutes, seconds]

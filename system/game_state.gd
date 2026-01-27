@@ -14,8 +14,11 @@ signal new_game_pressed
 signal pause_closed_requested
 signal pause_open_requested
 
+
 var is_pause_available = false
 
+signal survival_timer_finished
+var survival_time_remaining : float
 
 func _ready() -> void:
 	quit_game_pressed.connect(quit_game)

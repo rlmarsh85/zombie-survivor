@@ -44,3 +44,12 @@ offset_right = 452.0
 offset_bottom = 55.0
 text = "Stamina:"
 label_settings = SubResource("LabelSettings_is8se")
+
+[node name="TimeRemaining" type="RichTextLabel" parent="."]
+offset_left = 846.0
+offset_top = 69.0
+offset_right = 1002.0
+offset_bottom = 179.0
+scale = Vector2(2.05948, 1)
+bbcode_enabled = true
+text = "0:00"
